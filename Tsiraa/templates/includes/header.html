@@ -1,0 +1,275 @@
+{% load static %}
+<header class="header">
+    <!-- Top Bar-->
+    <div class="top-bar">
+        <div class="container-fluid">
+            <div class="row d-flex align-items-center">
+                <div class="col-sm-7 d-none d-sm-block">
+                    <ul class="list-inline topbar-text mb-0">
+                        <li class="list-inline-item pe-3 me-0">
+                            <svg class="svg-icon me-2">
+                                <use xlink:href="#calls-1"> </use>
+                            </svg>020-800-456-747
+                        </li>
+                        <li class="list-inline-item px-3 border-start d-none d-lg-inline-block">Free shipping on
+                            orders over $300</li>
+                    </ul>
+                </div>
+                <div class="col-sm-5 d-flex justify-content-end">
+                    <!-- Language Dropdown-->
+                    <div class="dropdown border-end px-3"><a class="dropdown-toggle topbar-link" id="langsDropdown"
+                            href="#" data-bs-toggle="dropdown" data-bs-display="static" aria-haspopup="true"
+                            aria-expanded="false"><img class="topbar-flag" src="{% static 'img/flag/gb.svg' %}"
+                                alt="english">English</a>
+                        <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated"
+                            aria-labelledby="langsDropdown"><a class="dropdown-item text-sm" href="#"><img
+                                    class="topbar-flag" src="{% static 'img/flag/de.svg' %}" alt="german">German</a><a
+                                class="dropdown-item text-sm" href="#"> <img class="topbar-flag"
+                                    src="{% static 'img/flag/fr.svg' %}" alt="french">French</a></div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Top Bar End-->
+    <!-- Navbar-->
+    <nav class="navbar navbar-expand-lg navbar-sticky navbar-airy navbar-light bg-white bg-fixed-white">
+        <div class="container-fluid">
+            <!-- Navbar Header  --> <a class="navbar-brand fs-3 fw-bolder fst-italic text-secondary" href="{% url 'home' %}" style="width: 100px;">Tsiraa</a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
+                aria-label="Toggle navigation"><i class="fa fa-bars"></i></button>
+            <!-- Navbar Collapse -->
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item dropdown"><a class="nav-link dropdown-toggle active"
+                            id="homeDropdownMenuLink" href="#" data-bs-target="#" data-bs-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            Home </a>
+                        <div class="dropdown-menu dropdown-menu-animated" aria-labelledby="homeDropdownMenuLink"><a
+                                class="dropdown-item" href="../index5.html">Slider + broken grid <span
+                                    class="badge badge-info-light ms-1">New</span> </a><a class="dropdown-item"
+                                href="../index.html">Fullscreen home + Lookbook</a><a class="dropdown-item"
+                                href="../index2.html">Split-screen home</a><a class="dropdown-item"
+                                href="../index3.html">Classic home</a><a class="dropdown-item"
+                                href="../index4.html">Parallax sections <span
+                                    class="badge badge-info-light ms-1">New</span></a></div>
+                    </li>
+                    <li class="nav-item dropdown"><a class="nav-link dropdown-toggle " id="categoryDropdownMenuLink"
+                            href="category.html" data-bs-target="#" data-bs-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">Shop</a>
+                        <div class="dropdown-menu dropdown-menu-animated"
+                            aria-labelledby="categoryDropdownMenuLink"><a class="dropdown-item"
+                                href="../category.html">Category - left sidebar </a><a class="dropdown-item"
+                                href="../category-right.html">Category - right sidebar </a><a class="dropdown-item"
+                                href="../category-no-sidebar.html">Category - no sidebar </a><a
+                                class="dropdown-item" href="../category-full.html">Category - full width </a><a
+                                class="dropdown-item" href="../category-masonry.html">Category - masonry items
+                            </a><a class="dropdown-item" href="../category-banner.html">Category - w/ banner </a><a
+                                class="dropdown-item" href="../detail.html">Product detail </a><a
+                                class="dropdown-item" href="../detail-2.html">Product detail - v.2 </a><a
+                                class="dropdown-item" href="../detail-3.html">Product detail - v.3 <span
+                                    class="badge badge-warning ms-1">New</span> </a>
+                        </div>
+                    </li>
+                    
+                    <!-- /Megamenu end-->
+                    <!-- Multi level dropdown    -->
+                    <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink"
+                            href="#" data-bs-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">Dropdown</a>
+                        <ul class="dropdown-menu dropdown-menu-animated" aria-labelledby="navbarDropdownMenuLink">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle"
+                                    id="navbarDropdownMenuLink2" href="#" data-bs-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">Dropdown link</a>
+                                <ul class="dropdown-menu dropdown-menu-animated"
+                                    aria-labelledby="navbarDropdownMenuLink2">
+                                    <li><a class="dropdown-item" href="#">Action</a></li>
+                                    <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle"
+                                            id="navbarDropdownMenuLink3" href="#" data-bs-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">Another action</a>
+                                        <ul class="dropdown-menu dropdown-menu-animated"
+                                            aria-labelledby="navbarDropdownMenuLink3">
+                                            <li><a class="dropdown-item" href="#">Action</a></li>
+                                            <li><a class="dropdown-item" href="#">Action</a></li>
+                                            <li><a class="dropdown-item" href="#">Action</a></li>
+                                            <li><a class="dropdown-item" href="#">Action</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle"
+                                            id="navbarDropdownMenuLink4" href="#" data-bs-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">Another action</a>
+                                        <ul class="dropdown-menu dropdown-menu-animated"
+                                            aria-labelledby="navbarDropdownMenuLink4">
+                                            <li><a class="dropdown-item" href="#">Action</a></li>
+                                            <li><a class="dropdown-item" href="#">Action</a></li>
+                                            <li><a class="dropdown-item" href="#">Action</a></li>
+                                            <li><a class="dropdown-item" href="#">Action</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle"
+                                    id="navbarDropdownMenuLink5" href="#" data-bs-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">Dropdown link</a>
+                                <ul class="dropdown-menu dropdown-menu-animated"
+                                    aria-labelledby="navbarDropdownMenuLink5">
+                                    <li><a class="dropdown-item" href="#">Action </a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- Multi level dropdown end-->
+                    <li class="nav-item"><a class="nav-link" href="../contact.html">Contact</a>
+                    </li>
+                    <li class="nav-item dropdown"><a class="dropdown-toggle nav-link " id="docsDropdownMenuLink"
+                            href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Docs</a>
+                        <div class="dropdown-menu dropdown-menu-animated dropdown-menu-end"
+                            aria-labelledby="docsDropdownMenuLink">
+                            <h6 class="dropdown-header fw-normal">Documentation</h6><a class="dropdown-item"
+                                href="../docs/docs-introduction.html">Introduction </a><a class="dropdown-item"
+                                href="../docs/docs-directory-structure.html">Directory structure </a><a
+                                class="dropdown-item" href="../docs/docs-gulp.html">Gulp </a><a
+                                class="dropdown-item" href="../docs/docs-customizing-css.html">Customizing CSS
+                            </a><a class="dropdown-item" href="../docs/docs-credits.html">Credits </a><a
+                                class="dropdown-item" href="../docs/docs-changelog.html">Changelog </a>
+                            <div class="dropdown-divider"></div>
+                            <h6 class="dropdown-header fw-normal">Components</h6><a class="dropdown-item"
+                                href="../docs/components-bootstrap.html">Bootstrap </a><a class="dropdown-item"
+                                href="../docs/components-sell.html">Theme </a><a class="dropdown-item"
+                                href="../component-variants/header.html">Header variants <span
+                                    class="badge bg-warning ms-1">New</span> </a>
+                        </div>
+                    </li>
+                </ul>
+                <div
+                    class="d-flex align-items-center justify-content-between justify-content-lg-end mt-1 mb-2 my-lg-0">
+                    <!-- Search Button-->
+                    <div class="nav-item navbar-icon-link" data-bs-toggle="search">
+                        <svg class="svg-icon">
+                            <use xlink:href="#search-1"> </use>
+                        </svg>
+                    </div>
+                    <!-- User Not Logged - link to login page-->
+                    {% if user.is_authenticated %}
+                    <div class="nav-item"><a class="navbar-icon-link" href="{% url 'logout' %}">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                            <span class="text-sm ms-2 ms-lg-0 text-uppercase text-sm fw-bold d-none d-sm-inline d-lg-none">Logout
+                            </span></a>
+                    </div>
+                    {% else %}
+                    <div class="nav-item"><a class="navbar-icon-link" href="{% url 'login' %}">
+                        <svg class="svg-icon">
+                            <use xlink:href="#male-user-1"> </use>
+                        </svg><span
+                            class="text-sm ms-2 ms-lg-0 text-uppercase text-sm fw-bold d-none d-sm-inline d-lg-none">Log
+                            in </span></a>
+                    </div>
+                    {% endif %}
+                    <!-- Cart Dropdown-->
+                    <div class="nav-item dropdown"><a class="navbar-icon-link d-lg-none" href="../cart.html">
+                            <svg class="svg-icon">
+                                <use xlink:href="#cart-1"> </use>
+                            </svg><span
+                                class="text-sm ms-2 ms-lg-0 text-uppercase text-sm fw-bold d-none d-sm-inline d-lg-none">View
+                                cart</span></a>
+                        <div class="d-none d-lg-block"><a class="navbar-icon-link" id="cartdetails" href="cart.html"
+                                data-bs-target="#" data-bs-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false">
+                                <svg class="svg-icon">
+                                    <use xlink:href="#cart-1"> </use>
+                                </svg>
+                                <div class="navbar-icon-link-badge">3 </div>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-animated dropdown-menu-end p-4"
+                                aria-labelledby="cartdetails">
+                                <div class="navbar-cart-product-wrapper">
+                                    <!-- cart item-->
+                                    <div class="navbar-cart-product">
+                                        <div class="d-flex align-items-center"><a href="../detail.html"><img
+                                                    class="img-fluid navbar-cart-product-image"
+                                                    src="../img/product/product-square-ian-dooley-347968-unsplash.jpg"
+                                                    alt="..."></a>
+                                            <div class="w-100"><a class="navbar-cart-product-close" href="#"><i
+                                                        class="fa fa-times"> </i></a>
+                                                <div class="ps-3"> <a class="navbar-cart-product-link"
+                                                        href="../detail.html">Skull Tee</a><small
+                                                        class="d-block text-muted">Quantity: 1 </small><strong
+                                                        class="d-block text-sm">$75.00 </strong></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- cart item-->
+                                    <div class="navbar-cart-product">
+                                        <div class="d-flex align-items-center"><a href="../detail.html"><img
+                                                    class="img-fluid navbar-cart-product-image"
+                                                    src="../img/product/product-square-kyle-loftus-596319-unsplash.jpg"
+                                                    alt="..."></a>
+                                            <div class="w-100"><a class="navbar-cart-product-close" href="#"><i
+                                                        class="fa fa-times"> </i></a>
+                                                <div class="ps-3"> <a class="navbar-cart-product-link"
+                                                        href="../detail.html">Transparent Blouse</a><small
+                                                        class="d-block text-muted">Quantity: 1 </small><strong
+                                                        class="d-block text-sm">$75.00 </strong></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- cart item-->
+                                    <div class="navbar-cart-product">
+                                        <div class="d-flex align-items-center"><a href="../detail.html"><img
+                                                    class="img-fluid navbar-cart-product-image"
+                                                    src="../img/product/product-square-serrah-galos-494312-unsplash.jpg"
+                                                    alt="..."></a>
+                                            <div class="w-100"><a class="navbar-cart-product-close" href="#"><i
+                                                        class="fa fa-times"> </i></a>
+                                                <div class="ps-3"> <a class="navbar-cart-product-link"
+                                                        href="../detail.html">White Tee</a><small
+                                                        class="d-block text-muted">Quantity: 1 </small><strong
+                                                        class="d-block text-sm">$75.00 </strong></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- total price-->
+                                <div class="navbar-cart-total"><span
+                                        class="text-uppercase text-muted">Total</span><strong
+                                        class="text-uppercase">$75.00</strong></div>
+                                <!-- buttons-->
+                                <div class="d-flex justify-content-between"><a class="btn btn-link text-dark me-3"
+                                        href="../cart.html">View Cart <i class="fa-arrow-right fa"></i></a><a
+                                        class="btn btn-outline-dark" href="../checkout1.html">Checkout</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- /Navbar -->
+    <!-- Fullscreen search area-->
+    <div class="search-area-wrapper">
+        <div class="search-area d-flex align-items-center justify-content-center">
+            <div class="close-btn">
+                <svg class="svg-icon svg-icon-light w-3rem h-3rem">
+                    <use xlink:href="#close-1"> </use>
+                </svg>
+            </div>
+            <form class="search-area-form" action="#">
+                <div class="mb-4 position-relative">
+                    <input class="search-area-input" type="search" name="search" id="search"
+                        placeholder="What are you looking for?">
+                    <button class="search-area-button" type="submit">
+                        <svg class="svg-icon">
+                            <use xlink:href="#search-1"> </use>
+                        </svg>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- /Fullscreen search area-->
+</header>

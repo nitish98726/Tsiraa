@@ -1,0 +1,8 @@
+Models
+User - first_name , last_name , username , email , phone_number , date_joined , last_login , is_admin , is_staff ,is_active , is_superadmin
+UserProfile - User(fk) ,address1 , address2 , pin_code , profile_picture , city , state , country , landmark , created_at , modified_at 
+
+
+Forms
+UserForm - User
+UserProfileForm - UserProfile

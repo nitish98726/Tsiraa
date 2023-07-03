@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<section class="hero">
+    <div class="container">
+        <!-- Breadcrumbs -->
+        <ol class="breadcrumb justify-content-center">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active">Customer zone </li>
+        </ol>
+        <!-- Hero Content-->
+        <div class="hero-content pb-5 text-center">
+            <h1 class="hero-heading mb-0">Customer zone</h1>
+        </div>
+    </div>
+</section>
+<!-- customer login-->
+<section>
+    <div class="container">
+        <div class="row justify-content-center">
+            
+            <div class="col-lg-5">
+                {% include 'includes/alerts.html' %}
+                <div class="block">
+                    <div class="block-header">
+                        <h6 class="text-uppercase mb-0">New account</h6>
+                    </div>
+                    <div class="block-body">
+                        <p class="lead">Not our registered customer yet?</p>
+                        <p>With registration with us new world of fashion, fantastic discounts and
+                            much more opens to you! The whole process will not take you more than a minute!</p>
+                        <p class="text-muted">If you have any questions, please feel free to <a
+                                href="contact.html">contact us</a>, our customer service center is working for you 24/7.
+                        </p>
+                        <hr>
+                        <form action="{% url 'register' %}" method="POST">
+                            {% csrf_token %}
+                            <div class="mb-4 row">
+                                <div class="col-md-6  pe-2">
+                                    <label class="form-label" for="name">First Name</label>
+                                    {{form.first_name}}
+                                </div>
+                                <div class="col-md-6  p-0">
+                                    <label class="form-label" for="name">Last Name</label>
+                                    {{form.last_name}}
+                                </div>
+                                <div class="col-md-12 pe-0 mt-4">
+                                    <label class="form-label" for="email">Email</label>
+                                    {{form.email}}
+                                </div>
+                                <div class="col-md-12 pe-0 mt-4">
+                                    <label class="form-label" for="password">Password</label>
+                                    {{form.password}}
+                                </div>
+                                <div class="col-md-12 pe-0 mt-4">
+                                    <label class="form-label" for="password">Confirm Password</label>
+                                    {{form.confirm_password}}
+                                </div>
+                                
+                                   
+                                {% for field in form %}
+                                    {% if field.errors %}
+                                        {% for error in field.errors %}
+                                            <li style="list-style: none;"><span class="text-danger">{{error}}</span></li>
+                                        {% endfor %}
+                                    {% endif %}
+                                {% endfor %}
+                                {% if form.non_field_errors %}
+                                    {% for error in form.non_field_errors %}   
+                                        <li style="list-style: none;"><span class="text-danger">{{error}}</span></li>
+                                    {% endfor %}
+                                {% endif %}
+                               
+                            </div>
+                            
+                            <div class="mb-4 text-center">
+                                <button class="btn btn-outline-dark" type="submit"><i
+                                        class="far fa-user me-2"></i>Register </button>
+                                <a href="{% url 'login' %}" class="btn btn-outline-dark"><i
+                                    class="fa fa-sign-in-alt me-2"></i> Login</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

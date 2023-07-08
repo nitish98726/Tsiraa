@@ -1,0 +1,283 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<section class="product-details" style="margin-top: 40px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7 pt-4 order-2 order-lg-1">
+                <div class="row">
+                    <div class="d-none d-md-block col-md-2 pe-0">
+                        <div class=" mb-2 border  rounded" >
+                            
+                            <a class="mb-3"  id='p_image_side' href="{% static 'img/person-1.jpg' %}"><img class="img-fluid muted-image"
+                                    src="{% static 'img/person-1.jpg' %}" alt="Modern Jacket 0"></a>
+                        </div>
+                        
+                            
+                    </div>
+                    <div class="col-12 col-md-10 detail-carousel">
+                        <div class="ribbon ribbon-info">Fresh</div>
+                        <div class="ribbon ribbon-primary">Sale</div>
+                        <img id='product_detail_image'  src="{{product.image.url}}" alt="" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5 ps-lg-4 order-1 order-lg-2">
+                <ul class="breadcrumb undefined ">
+                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item"><a href="category.html">{{product.category}}</a></li>
+                    <li class="breadcrumb-item active">{{product.product_name}} </li>
+                </ul>
+                <h1 class="mb-4">{{product.product_name}}</h1>
+                <div class="d-flex flex-column flex-sm-row align-items-sm-center justify-content-sm-between mb-4">
+                    <ul class="list-inline mb-2 mb-sm-0">
+                        <li class="list-inline-item h4 fw-light mb-0">INR {{product.price}}</li>
+                        <li class="list-inline-item text-muted fw-light">
+                            <del>INR 1000</del>
+                        </li>
+                    </ul>
+                    <div class="d-flex align-items-center">
+                        <ul class="list-inline me-2 mb-0">
+                            <li class="list-inline-item me-0"><i class="fa fa-star text-primary"></i></li>
+                            <li class="list-inline-item me-0"><i class="fa fa-star text-primary"></i></li>
+                            <li class="list-inline-item me-0"><i class="fa fa-star text-primary"></i></li>
+                            <li class="list-inline-item me-0"><i class="fa fa-star text-primary"></i></li>
+                            <li class="list-inline-item me-0"><i class="fa fa-star text-gray-300"></i></li>
+                        </ul><span class="text-muted text-uppercase text-sm">25 reviews</span>
+                    </div>
+                </div>
+                <p class="mb-4 text-muted">{{product.description}}</p>
+                <form action="{% url 'add_cart' product.id %}" id = "product_detail_form" method="POST">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-12 detail-option mb-3">
+                            <h6 class="detail-option-heading">Size <span>(required)</span></h6>
+                            
+                            {% for size in sizes %}
+                            <div class="form-check form-check-inline m-0 p-0">
+                            <input type="radio" class="btn-check" id="btn-check-2-outlined{{size.id}}" name="size"  value='{{size.size}}' required>
+                            <label class="btn btn-outline-secondary" for="btn-check-2-outlined{{size.id}}">{{size}}</label>
+                            </div>
+                            {% endfor %}
+                            
+                            
+                        </div>
+                        
+                        <div class="col-12 detail-option mb-3">
+                            <h6 class="detail-option-heading">Colour <span>(required)</span></h6>
+                            <ul class="list-inline mb-0 colours-wrapper">
+                                {% for color in colors %}
+                                <li class="list-inline-item">
+                                    <input type="radio" class="form-check-input" value="{{color.color}}" name="color" style="background-color: {{color.color}};font-size:30px;" required>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="col-12 col-lg-6 detail-option mb-5">
+                            <label class="detail-option-heading fw-bold">Items <span>(required)</span></label>
+                            <input class="form-control detail-quantity" name="items" type="number" value="1" >
+                        </div>
+                    </div>
+                    <button class="btn btn-dark btn-lg mb-1"  type="submit"> <i
+                        class="fa fa-shopping-cart me-2" style="height: 30px;"></i>Add to Cart</button>
+                    <button class="btn btn-outline-dark  mb-1" type="submit"> <i
+                            class="fa fa-shopping-cart me-2"></i>Wishlist</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="mt-5">
+    <div class="container">
+        <ul class="nav nav-tabs flex-column flex-sm-row" role="tablist">
+            <li class="nav-item"><a class="nav-link detail-nav-link active" data-bs-toggle="tab" href="#description"
+                    role="tab">Description</a></li>
+            <li class="nav-item"><a class="nav-link detail-nav-link" data-bs-toggle="tab" href="#additional-information"
+                    role="tab">Additional Information</a></li>
+            <li class="nav-item"><a class="nav-link detail-nav-link" data-bs-toggle="tab" href="#reviews"
+                    role="tab">Reviews</a></li>
+        </ul>
+        <div class="tab-content py-4">
+            <div class="tab-pane active px-3" id="description" role="tabpanel">
+                <p class="text-muted">{{product_info.description |safe }}</p>
+            </div>
+            <div class="tab-pane" id="additional-information" role="tabpanel">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <table class="table text-sm">
+                            <tbody>
+                                <tr>
+                                    <th class="text-uppercase fw-normal border-0">Product #</th>
+                                    <td class="text-muted border-0">{{product.product_name}}</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-uppercase fw-normal ">Available packaging</th>
+                                    <td class="text-muted ">{{product_info.available_packaging}}</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-uppercase fw-normal ">Weight</th>
+                                    <td class="text-muted ">{{product_info.weight}}</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-uppercase fw-normal ">Product Dimensions</th>
+                                    <td class="text-muted ">{{product_info.dimensions}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="tab-pane" id="reviews" role="tabpanel">
+                <div class="row mb-5">
+                    <div class="col-lg-10 col-xl-9">
+                        <div class="review d-flex">
+                            <div class="flex-shrink-0 text-center me-4 me-xl-5"><img class="review-image"
+                                    src="img/person-1.jpg" alt="Han Solo"><span class="text-uppercase text-muted">Dec
+                                    2018</span></div>
+                            <div>
+                                <h5 class="mt-2 mb-1">Han Solo</h5>
+                                <div class="mb-2"><i class="fa fa-xs fa-star text-warning"></i><i
+                                        class="fa fa-xs fa-star text-warning"></i><i
+                                        class="fa fa-xs fa-star text-warning"></i><i
+                                        class="fa fa-xs fa-star text-warning"></i><i
+                                        class="fa fa-xs fa-star text-warning"></i>
+                                </div>
+                                <p class="text-muted">One morning, when Gregor Samsa woke from troubled dreams, he found
+                                    himself transformed in his bed into a horrible vermin. He lay on his armour-like
+                                    back, and if he lifted his head a little he could see his brown belly, slightly
+                                    domed and divided by arches into stiff sections </p>
+                            </div>
+                        </div>
+                        <div class="review d-flex">
+                            <div class="flex-shrink-0 text-center me-4 me-xl-5"><img class="review-image"
+                                    src="img/person-2.jpg" alt="Luke Skywalker"><span
+                                    class="text-uppercase text-muted">Dec 2018</span></div>
+                            <div>
+                                <h5 class="mt-2 mb-1">Luke Skywalker</h5>
+                                <div class="mb-2"><i class="fa fa-xs fa-star text-warning"></i><i
+                                        class="fa fa-xs fa-star text-warning"></i><i
+                                        class="fa fa-xs fa-star text-warning"></i><i
+                                        class="fa fa-xs fa-star text-warning"></i><i
+                                        class="fa fa-xs fa-star text-gray-200"></i>
+                                </div>
+                                <p class="text-muted">The bedding was hardly able to cover it and seemed ready to slide
+                                    off any moment. His many legs, pitifully thin compared with the size of the rest of
+                                    him, waved about helplessly as he looked. &quot;What's happened to me?&quot; he
+                                    thought. It wasn't a dream. </p>
+                            </div>
+                        </div>
+                        <div class="review d-flex">
+                            <div class="flex-shrink-0 text-center me-4 me-xl-5"><img class="review-image"
+                                    src="img/person-3.jpg" alt="Princess Leia"><span
+                                    class="text-uppercase text-muted">Dec 2018</span></div>
+                            <div>
+                                <h5 class="mt-2 mb-1">Princess Leia</h5>
+                                <div class="mb-2"><i class="fa fa-xs fa-star text-warning"></i><i
+                                        class="fa fa-xs fa-star text-warning"></i><i
+                                        class="fa fa-xs fa-star text-warning"></i><i
+                                        class="fa fa-xs fa-star text-gray-200"></i><i
+                                        class="fa fa-xs fa-star text-gray-200"></i>
+                                </div>
+                                <p class="text-muted">His room, a proper human room although a little too small, lay
+                                    peacefully between its four familiar walls. A collection of textile samples lay
+                                    spread out on the table. </p>
+                            </div>
+                        </div>
+                        <div class="review d-flex">
+                            <div class="flex-shrink-0 text-center me-4 me-xl-5"><img class="review-image"
+                                    src="img/person-4.jpg" alt="Jabba Hut"><span class="text-uppercase text-muted">Dec
+                                    2018</span></div>
+                            <div>
+                                <h5 class="mt-2 mb-1">Jabba Hut</h5>
+                                <div class="mb-2"><i class="fa fa-xs fa-star text-warning"></i><i
+                                        class="fa fa-xs fa-star text-warning"></i><i
+                                        class="fa fa-xs fa-star text-warning"></i><i
+                                        class="fa fa-xs fa-star text-warning"></i><i
+                                        class="fa fa-xs fa-star text-warning"></i>
+                                </div>
+                                <p class="text-muted">Samsa was a travelling salesman - and above it there hung a
+                                    picture that he had recently cut out of an illustrated magazine and housed in a
+                                    nice, gilded frame. </p>
+                            </div>
+                        </div>
+                        <div class="py-5 px-3">
+                            <h5 class="text-uppercase mb-4">Leave a review</h5>
+                            <form class="form" id="contact-form" method="post" action="contact.php">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="mb-4">
+                                            <label class="form-label" for="name">Your name *</label>
+                                            <input class="form-control" type="text" name="name" id="name"
+                                                placeholder="Enter your name" required="required">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="mb-4">
+                                            <label class="form-label" for="rating">Your rating *</label>
+                                            <select class="custom-select focus-shadow-0" name="rating" id="rating">
+                                                <option value="5">&#9733;&#9733;&#9733;&#9733;&#9733; (5/5)</option>
+                                                <option value="4">&#9733;&#9733;&#9733;&#9733;&#9734; (4/5)</option>
+                                                <option value="3">&#9733;&#9733;&#9733;&#9734;&#9734; (3/5)</option>
+                                                <option value="2">&#9733;&#9733;&#9734;&#9734;&#9734; (2/5)</option>
+                                                <option value="1">&#9733;&#9734;&#9734;&#9734;&#9734; (1/5)</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-4">
+                                    <label class="form-label" for="email">Your email *</label>
+                                    <input class="form-control" type="email" name="email" id="email"
+                                        placeholder="Enter your  email" required="required">
+                                </div>
+                                <div class="mb-4">
+                                    <label class="form-label" for="review">Review text *</label>
+                                    <textarea class="form-control" rows="4" name="review" id="review"
+                                        placeholder="Enter your review" required="required"></textarea>
+                                </div>
+                                <button class="btn btn-outline-dark" type="submit">Post review</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% if recently_viewed %}
+<section class="my-5">
+    <div class="container">
+        <header class="text-center">
+            <h6 class="text-uppercase mb-5">Recently Viewed Products</h6>
+        </header>
+        
+        <div class="row">
+            {% for product in recently_viewed %}
+            <div class="col-lg-2 col-md-4 col-6">
+                <div class="product">
+                    <div class="product-image">
+                        <div class="ribbon ribbon-info">Fresh</div><img class="img-fluid"
+                            src="{{product.image.url}}" alt="product" style="height: 250px; width: 200px;" />
+                        <div class="product-hover-overlay"><a class="product-hover-overlay-link" href="detail.html"></a>
+                            <div class="product-hover-overlay-buttons">
+                               
+                                <a class="btn btn-dark btn-buy py-0 px-1 text-center" href="{% url 'product_detail' product.category.category_slug product.product_slug %}"><i class="fa-search fa align-self-center"></i><span class="btn-buy-label ms-2 my-auto ">View</span></a>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="py-2">
+                        <p class="text-muted text-sm mb-1">{{product.category}}</p>
+                        <h3 class="h6 text-uppercase mb-1"><a class="text-dark" href="detail.html">{{product.product_name}}</a></h3>
+                        <span class="text-muted">INR {{product.price}}</span>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            <!-- /product-->
+            
+        </div>
+    </div>
+</section>
+{% endif %}
+{% endblock %}

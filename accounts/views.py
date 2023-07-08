@@ -6,12 +6,19 @@ from .models import User
 import random
 from .utils import send_password_reset_mail , user_activation
 
-
+from cart.models import Cart , CartItem
 # Create your views here.
 
 #Test page
 def accounts(request):
     return HttpResponse("this is accounts page")
+
+# cart id function
+def cart_id(request):
+    cart = request.session.session_key
+    if not cart:
+        cart = request.session.create()
+    return cart
 
 #Login Functionality
 def login(request):
@@ -22,12 +29,57 @@ def login(request):
         email = request.POST['email']
         password = request.POST['password']
         user = auth.authenticate(email=email , password=password)
-        print(user , email , password)
+        # print(user , email , password)
         
         if user is not None:
+            # Moving items of logged in user to logged in cart
+            try:
+                
+                cart = Cart.objects.get(cart_id=cart_id(request))
+                
+                cartitems = CartItem.objects.filter(cart=cart)
+                product_variations = []
+                id_nouser = []
+                if cartitems is not None:
+                    
+                    for item in cartitems:
+                        item_list = [item.product , item.size , item.color , item.quantity ]
+                        product_variations.append(item_list) #here this list contains 4 items in each list
+                        id_nouser.append(item.id)
+                    
+                    user_cartitems = CartItem.objects.filter(user=user)
+                    print(user_cartitems)
+                    ex_var_list  =[] #here each sublist conatins three items
+                    id_user = []
+                    for item in user_cartitems:
+                        item_list = [item.product , item.size , item.color]
+                        ex_var_list.append(item_list)
+                        id_user.append(item.id)
+                    
+                    for item in product_variations:
+                        
+                        if item[:3] in ex_var_list:
+                            
+                            index = ex_var_list.index(item[:3])
+                            prod_id = id_user[index]
+                            new_cart = CartItem.objects.get(user=user , id=prod_id)
+                            new_cart.quantity += int(item[3])
+                            new_cart.save()
+                        else:
+                            
+                            index_cart_item_nouser = product_variations.index(item)
+                            prod_id_nouser = id_nouser[index_cart_item_nouser]
+                            cartitem_nouser = CartItem.objects.get(id = prod_id_nouser,cart=cart)
+                            
+                            cartitem_nouser.user = user
+                            cartitem_nouser.save()
+                
+            except:
+                pass
             auth.login(request , user)
             messages.success(request , "You are Logged in")
             return redirect('home')
+        
         else:
             messages.error(request , 'Login Credentials Donot Match')
             return redirect('login')

@@ -1,8 +1,18 @@
 Models
 User - first_name , last_name , username , email , phone_number , date_joined , last_login , is_admin , is_staff ,is_active , is_superadmin
 UserProfile - User(fk) ,address1 , address2 , pin_code , profile_picture , city , state , country , landmark , created_at , modified_at 
-
+Prouct = category(fk), product_name , product_slug ,description , price , image,stock , product_createdBy , is_available , created_date , modified_at
+Size = product(fk) , stock , size , is_available , description , created_at , size_createdBy , size_slug
+Color=   product(fk) ,size(fk) ,stock , color , is_available ,color_desName, description , created_at , color_createdBy , color_slug
+ProductGallery - product{fk) ,  image , size{fk) , color(fk) , gallery_createdBY 
+Category - category_name , category_slug , created_at , category_description , category_image , updated_at , category_createdBy
+ProductAddInfo = product(fk) , decsrtpion , available_packaging , weight  , dimensions
+Cart - cart_id , date_added
+CartItem - user(fk) , product(fk) , size , color , quantity , is_active , cart(fk)
 
 Forms
 UserForm - User
 UserProfileForm - UserProfile
+
+
+-------------------------------------------------------------------

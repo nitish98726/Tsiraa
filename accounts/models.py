@@ -36,13 +36,18 @@ class UserManager(BaseUserManager):
 
 # Create your models here.
 class User(AbstractBaseUser):
-    
+    EMPLOYEE= 1
+    CUSTOMER = 2
+    ROLE_CHOICES = (
+        (EMPLOYEE , "Employee"),
+        (CUSTOMER , "Customer"),
+    )
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     username = models.CharField(max_length=50 ,unique=True)
     email = models.EmailField(max_length=100 , unique=True)
     phone_number = models.CharField(max_length=50)
-    
+    role = models.PositiveSmallIntegerField(choices=ROLE_CHOICES ,default=CUSTOMER)
 
     # required
     date_joined = models.DateTimeField(auto_now_add=True)
@@ -74,7 +79,7 @@ class UserProfile(models.Model):
     address2 = models.CharField(blank=True ,max_length=250 )
     pin_code = models.CharField(max_length=10)
     profile_picture = models.ImageField(blank=True,upload_to='user/profile_pictures' )
-   
+    
     city = models.CharField(blank=True , max_length=20)
     state = models.CharField(blank=True , max_length=20)
     country = models.CharField(blank=True , max_length=20 , default="INDIA")

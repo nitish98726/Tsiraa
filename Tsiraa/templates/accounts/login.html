@@ -20,7 +20,7 @@
         <div class="container dashboard_section">
             <div class="row justify-content-center">
                 
-                <div class="col-lg-5">
+                <div class="col-lg-6">
                     {% include 'includes/alerts.html' %}
                     <div class="block">
                         <div class="block-header">
@@ -40,12 +40,15 @@
                                     <label class="form-label" >Password</label>
                                     <input class="form-control"  name='password' type="password">
                                 </div>
-                                <div class="mb-4 text-center">
-                                    <button class="btn btn-outline-dark float-start" type="submit"><i
-                                            class="fa fa-sign-in-alt me-2"></i> Log in</button>
-                                    <a class="btn btn-outline-dark float-end" href="{% url 'register' %}"><i
-                                        class="fa fa-sign-in-alt me-2"></i>Register</a>
-                                    <a class="btn btn-outline-dark" href="{% url 'forgotPassword' %}"><i class="fa-solid fa-unlock"></i>Forgot Pass</a>
+                                <div class=" row mb-4 text-center">
+                                    <div class="col-md-4"><button class="btn btn-outline-dark " type="submit"><i
+                                        class="fa fa-sign-in-alt "></i> Log in</button></div>
+                                    <div class="col-md-4"> <a class="btn btn-outline-dark " href="{% url 'register' %}"><i
+                                        class="fa fa-sign-in-alt "></i>Register</a></div>
+                                    <div class="col-md-4"><a class="btn btn-outline-dark" href="{% url 'forgotPassword' %}"><i class="fa-solid fa-unlock"></i>Forgot</a></div>
+                                    
+                                   
+                                    
                                 </div>
                             
                             </form>

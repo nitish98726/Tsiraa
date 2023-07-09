@@ -170,11 +170,13 @@
             </div>
         </div>
     </nav>
+    <form action="{% url 'search' %}" method="GET">
     <div class="d-none w-75 mx-auto input-group my-4" id="search_bar">
         
-        <input type="text"  placeholder="Search for Products and Categories" class="form-control">
-        <button class="btn btn-outline-dark" type="button">Search</button>
+        <input type="text"  placeholder="Search for Products and Categories" class="form-control" name="search">
+        <button class="btn btn-outline-dark" type="submit" >Search</button>
     </div>
+    </form>
     <!-- /Navbar -->
     
 </header>

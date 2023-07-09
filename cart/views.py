@@ -173,4 +173,4 @@ def add_cart_ajax(request , cart_item_id):
 
 @login_required(login_url = 'login')    
 def checkout(request):
-    return HttpResponse("this is the checkout page")
+    return render(request , 'cart/checkout.html')

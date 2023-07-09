@@ -12,7 +12,7 @@ def category(request):
 
 def products_bycategory(request , category_slug):
     
-    # try:
+    try:
         cat = get_object_or_404(Category , category_slug = category_slug)
         products = Product.objects.filter(category=cat , is_available=True )
         count = products.count()
@@ -22,9 +22,9 @@ def products_bycategory(request , category_slug):
             'count':count,
         }
         return render(request , 'store/products_bycategory.html' , context)
-    # except:
+    except:
 
-    #     return redirect('category')
+        return redirect('category')
     
 def product_detail(request , category_slug , product_slug):
    

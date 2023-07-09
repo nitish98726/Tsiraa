@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="hero">
+    <div class="container">
+        <!-- Breadcrumbs -->
+        <ol class="breadcrumb justify-content-center">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active">Shop </li>
+        </ol>
+        <!-- Hero Content-->
+        <div class="hero-content pb-5 text-center">
+            <h1 class="hero-heading">{{category.category_name}}</h1>
+            <div class="row">
+                <div class="col-xl-8 offset-xl-2">
+                    <p class="lead text-muted">{{category.category_description}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<main>
+    <div class="container">
+        <div class="row">
+            <!-- Grid -->
+            <div class="products-grid col-12 sidebar-none">
+                <header class="product-grid-header">
+                    <div class="me-3 mb-3">
+                        Showing <strong>1-{{count}} </strong>of <strong>{{count}} </strong>products</div>
+                    <div class="me-3 mb-3"><span class="me-2">Show</span><a class="product-grid-header-show active"
+                            href="#">12 </a><a class="product-grid-header-show " href="#">24 </a><a
+                            class="product-grid-header-show " href="#">All </a>
+                    </div>
+                    <div class="mb-3 d-flex align-items-center"><span class="d-inline-block me-2">Sort by</span>
+                        <select class="form-select w-auto border-0">
+                            <option value="orderby_0">Default</option>
+                            <option value="orderby_1">Popularity</option>
+                            <option value="orderby_2">Rating</option>
+                            <option value="orderby_3">Newest first</option>
+                        </select>
+                    </div>
+                </header>
+                <div class="row">
+                    <!-- product-->
+                    
+                    <!-- /product-->
+                    <!-- product-->
+                    {% for item in products_byinfo %}
+                    <div class="col-xl-3 col-lg-4 col-sm-6">
+                        <div class="product">
+                            <div class="product-image"><img class="img-fluid" style="height: 500px;"
+                                    src="{{item.product.image.url}}" alt="{{item.product.category.category_name}}-{{item.product.product_name}}" >
+                                <div class="product-hover-overlay"><a class="product-hover-overlay-link"
+                                        href="{% url 'product_detail' item.product.category.category_slug item.product.product_slug %}"></a>
+                                    <div class="product-hover-overlay-buttons"><a
+                                            class="btn btn-outline-dark btn-product-left d-none d-sm-inline-block"
+                                            href="#"><i class="fa fa-shopping-cart"></i></a><a
+                                            class="btn btn-dark btn-buy" href="{% url 'product_detail' item.product.category.category_slug item.product.product_slug %}"><i
+                                                class="fa-search fa"></i><span
+                                                class="btn-buy-label ms-2">View</span></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="py-2">
+                                <p class="text-muted text-sm mb-1">{{category.category_name}}</p>
+                                <h3 class="h6 text-uppercase mb-1"><a class="text-dark" href="{% url 'product_detail' item.product.category.category_slug item.product.product_slug %}">{{item.product.product_name}}</a></h3><span class="text-muted">INR {{item.product.price}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <!-- /product-->
+                    <!-- product-->
+                    
+                    <!-- /product-->
+                </div>
+                <!-- Pagination-->
+                <nav class="d-flex justify-content-center mb-5 mt-3" aria-label="page navigation">
+                    <ul class="pagination">
+                        <li class="page-item"><a class="page-link" href="#" aria-label="Previous"><span
+                                    aria-hidden="true">Prev</span><span class="sr-only">Previous</span></a></li>
+                        <li class="page-item active"><a class="page-link" href="#">1 </a></li>
+                        <li class="page-item"><a class="page-link" href="#">2 </a></li>
+                        <li class="page-item"><a class="page-link" href="#">3 </a></li>
+                        <li class="page-item"><a class="page-link" href="#">4 </a></li>
+                        <li class="page-item"><a class="page-link" href="#">5 </a></li>
+                        <li class="page-item"><a class="page-link" href="#" aria-label="Next"><span
+                                    aria-hidden="true">Next</span><span class="sr-only">Next </span></a></li>
+                    </ul>
+                </nav>
+            </div>
+            <!-- / Grid End-->
+        </div>
+    </div>
+</main>
+{% endblock %}

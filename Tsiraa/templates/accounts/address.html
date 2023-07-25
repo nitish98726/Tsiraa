@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<section class="hero">
+    <div class="container">
+        <!-- Breadcrumbs -->
+        <ol class="breadcrumb justify-content-center">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active">Your addresses </li>
+        </ol>
+        <!-- Hero Content-->
+        <div class="hero-content py-5 text-center">
+            <h1 class="hero-heading fw-bolder">Your addresses</h1>
+        </div>
+    </div>
+</section>
+<section>
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-lg-8 col-xl-9">
+                <form action="{% url 'address' %}" method="POST">
+                    <div class="block">
+                        <!-- Invoice Address-->
+                        <div class="block-header">
+                            <h6 class="text-uppercase mb-0">Add New Address </h6>
+                        </div>
+                        <div class="block-body">
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    <label class="form-label" >Full Name</label>
+                                    {{form.full_name}}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="form-label" for="emailaddress_invoice">Address Line 1</label>
+                                    {{form.address1}}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="form-label" for="street_invoice">Address Line2</label>
+                                    {{form.address1}}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="form-label" for="city_invoice">City</label>
+                                    {{form.city}}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="form-label" for="city_invoice">State</label>
+                                    {{form.state}}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="form-label" for="zip_invoice">PIN CODE</label>
+                                    {{form.pin_code}}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="form-label" for="state_invoice">Land Mark</label>
+                                    {{form.landmark}}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="form-label" for="phonenumber_invoice">Country</label>
+                                    {{form.country}}
+                                </div>
+                                
+                            </div>
+                            <!-- /Invoice Address-->
+                        </div>
+                        <!-- Shippping Address-->
+                        
+                    </div>
+                    <div class="mb-4 mt-3 text-center">
+                        <button class="btn btn-outline-dark" type="submit"><i class="far fa-save me-2"></i>Save
+                            Address</button>
+                    </div>
+                </form>
+            </div>
+            {% include 'accounts/custSidebar.html' %}
+        </div>
+    </div>
+</section>
+{% endblock %}

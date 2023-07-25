@@ -4,6 +4,7 @@ from .models import CartItem , Cart
 from store.models import Product
 from .context_processors import cart_counter , amount_calculator
 from django.contrib.auth.decorators import login_required
+from orders.forms import OrderForm
 # Create your views here.
 def cart_id(request):
     cart = request.session.session_key
@@ -86,6 +87,7 @@ def add_cart(request ,product_id):
                     is_active = True,
                 )
                 new_item.save()
+    # User Not authenticated
     else:
         if request.method=="POST":
             try:
@@ -147,9 +149,9 @@ def add_cart(request ,product_id):
                     is_active = True,
                 )
                 new_item.save()
-
-
     return redirect('cart')
+
+    
 
 def add_cart_ajax(request , cart_item_id):
     if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
@@ -157,12 +159,15 @@ def add_cart_ajax(request , cart_item_id):
             cartitem = CartItem.objects.get(id = cart_item_id)
             cartitem.quantity +=1
             cartitem.save()
+            item_total = cartitem.item_wise_total()
+            print(item_total)
             return JsonResponse({
                 'status':'Success',
                 'message':"Cart Item Increased",
                 'cart_counter':cart_counter(request),
                 'qty':cartitem.quantity,
                 'cart_amount':amount_calculator(request),
+                'item_wise_total':item_total,
             })
         except:
             return JsonResponse({
@@ -170,7 +175,64 @@ def add_cart_ajax(request , cart_item_id):
                 'message':"Cart Item does not exist",
 
             })
+def decrease_cart(request , cart_item_id):
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        qty =0
+        item_total=0
+        try:
+            cartitem = CartItem.objects.get(id = cart_item_id)
+            if cartitem.quantity <=1:
+                cartitem.delete()
+                  
+            else:
+                cartitem.quantity -=1
+                cartitem.save()
+                qty = cartitem.quantity
+                item_total = cartitem.item_wise_total()
+            return JsonResponse({
+                'status':'Success',
+                'message':'Cart Item Decreased',
+                'cart_counter':cart_counter(request),
+                'qty':qty,
+                'cart_amount':amount_calculator(request),
+                'item_wise_total':item_total,
+
+            })
+        except:
+            return JsonResponse({
+                'status':'Failed',
+                'message':'No such cart Item Exists'
+            })
+    # return HttpResponse('decrease cart working')
+
+def remove_cart(request , cart_item_id):
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        try:
+            cartitem = CartItem.objects.get(id = cart_item_id)
+            cartitem.delete()
+            return JsonResponse({
+                'status':'Success',
+                'message':"Cart Item deleted Succesfully",
+                'cart_counter':cart_counter(request),
+                'qty':0,
+                'cart_amount':amount_calculator(request),
+            })
+        except:
+            return JsonResponse({
+                'status':"Failed",
+                'message':"No such Cart Item Exists",
+                
+            })
 
 @login_required(login_url = 'login')    
 def checkout(request):
-    return render(request , 'cart/checkout.html')
+    cartitem = CartItem.objects.filter(user=request.user).exists()
+    # print(cartitem)
+    if cartitem:
+        form = OrderForm()
+        context = {
+            'form':form,
+        }
+        return render(request , 'cart/checkout.html' , context)
+    else:
+        return redirect('home')

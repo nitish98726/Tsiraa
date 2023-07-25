@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'store',
     'cart',
     'orders',
+    'reviews',
     
 ]
 
@@ -159,3 +160,6 @@ SECURE_CROSS_ORIGIN_OPENER_POLICY='same-origin-allow-popups'
 # Razorpay
 RZP_KEY_ID = config("RZP_KEY_ID")
 RZP_KEY_SECRET = config("RZP_KEY_SECRET")
+
+#DELHIVERY
+DEL_TOKEN = config('DEL_TOKEN')

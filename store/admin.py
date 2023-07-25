@@ -4,7 +4,9 @@ from .models import Category , Product , Size , Color , ProductGallery , Product
 # Register your models here.
 class ProductAdmin(admin.ModelAdmin):
     prepopulated_fields = {'product_slug':('product_name' ,)}
-    list_display = ['category' , 'product_name' ,'price' ,'stock' , 'is_available']
+    list_display = ['category' , 'product_name' ,'price' ,'stock' , 'is_available' , 'created_at']
+    
+    list_filter = ['category' , 'is_available']
     list_editable=['is_available']
 
 

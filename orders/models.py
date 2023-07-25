@@ -58,8 +58,8 @@ class OrderProduct(models.Model):
     payment = models.ForeignKey(Payment , on_delete=models.SET_NULL , blank=True , null=True)
     user = models.ForeignKey(User , on_delete=models.CASCADE)
     product = models.ForeignKey(Product , on_delete=models.CASCADE)
-    size = models.CharField(max_length=10 , blank=True)
-    color = models.CharField(max_length=20 , blank=True)
+    size = models.CharField(max_length=10 , blank=True , null=True)
+    color = models.CharField(max_length=20 , blank=True , null=True)
     quantity = models.IntegerField()
     productPrice = models.FloatField()
     ordered = models.BooleanField(default=False)
@@ -67,7 +67,7 @@ class OrderProduct(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def product_total(self):
-        return (self.productPrice*self.quantity)
+        return (self.product.price*self.quantity)
 
     def __str__(self):
         return self.product.product_name

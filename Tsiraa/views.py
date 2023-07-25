@@ -16,4 +16,4 @@ def search(request):
             # 'category':cat,
             'count':count,
         }
-    return render(request , 'store/products.html' , context)
+    return render(request , 'store/product_search.html' , context)

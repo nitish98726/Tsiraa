@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<section class="product-details" style="margin-top: 40px;">
+{% include 'includes/alerts.html' %}
+<section class="product-details dashboard_section" style="margin-top: 40px;">
     <div class="container">
         <div class="row">
             <div class="col-lg-7 pt-4 order-2 order-lg-1">
@@ -24,8 +25,8 @@
             </div>
             <div class="col-lg-5 ps-lg-4 order-1 order-lg-2">
                 <ul class="breadcrumb undefined ">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item"><a href="category.html">{{product.category}}</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'products_bycategory' product.category.category_slug %}">{{product.category}}</a></li>
                     <li class="breadcrumb-item active">{{product.product_name}} </li>
                 </ul>
                 <h1 class="mb-4">{{product.product_name}}</h1>
@@ -73,9 +74,14 @@
                                 {% endfor %}
                             </ul>
                         </div>
-                        <div class="col-12 col-lg-6 detail-option mb-5">
+                        <div class="col-12 col-lg-12 detail-option mb-2">
                             <label class="detail-option-heading fw-bold">Items <span>(required)</span></label>
                             <input class="form-control detail-quantity" name="items" type="number" value="1" >
+                        </div>
+                        <div class="col-12 col-lg-12 detail-option mb-5">
+                            <label class="detail-option-heading mb-1 ">Pin code to check shipping </label>
+                            <input class="form-control detail-quantity" data-url = "{% url 'service_pincode' %}" id="pin-code" type="text" placeholder="141010" style="width: 200px;">
+                           
                         </div>
                     </div>
                     <button class="btn btn-dark btn-lg mb-1"  type="submit"> <i
@@ -130,112 +136,113 @@
             </div>
             <div class="tab-pane" id="reviews" role="tabpanel">
                 <div class="row mb-5">
-                    <div class="col-lg-10 col-xl-9">
-                        <div class="review d-flex">
-                            <div class="flex-shrink-0 text-center me-4 me-xl-5"><img class="review-image"
-                                    src="img/person-1.jpg" alt="Han Solo"><span class="text-uppercase text-muted">Dec
-                                    2018</span></div>
-                            <div>
-                                <h5 class="mt-2 mb-1">Han Solo</h5>
-                                <div class="mb-2"><i class="fa fa-xs fa-star text-warning"></i><i
-                                        class="fa fa-xs fa-star text-warning"></i><i
-                                        class="fa fa-xs fa-star text-warning"></i><i
-                                        class="fa fa-xs fa-star text-warning"></i><i
-                                        class="fa fa-xs fa-star text-warning"></i>
+                    <div class="col-lg-10">
+                        <div class="row">
+                        {% for review in reviews %}
+                        <div class="col-lg-8">
+                            <div class="review d-flex">
+                                <div class="flex-shrink-0 text-center me-4 me-xl-5"><img class="review-image"
+                                        src="img/person-1.jpg" alt="Han Solo"><span class="text-uppercase text-muted">Dec
+                                        2018</span></div>
+                                <div>
+                                    <h5 class="mt-2 mb-1">{{review.user.full_name}}</h5>
+                                    <div class="mb-2"><i class="fa fa-xs fa-star text-warning"></i><i
+                                            class="fa fa-xs fa-star text-warning"></i><i
+                                            class="fa fa-xs fa-star text-warning"></i><i
+                                            class="fa fa-xs fa-star text-warning"></i><i
+                                            class="fa fa-xs fa-star text-warning"></i>
+                                    </div>
+                                    <p class="text-muted">One morning, when Gregor Samsa woke from troubled dreams, he found
+                                        himself transformed in his bed into a horrible vermin. He lay on his armour-like
+                                        back, and if he lifted his head a little he could see his brown belly, slightly
+                                        domed and divided by arches into stiff sections </p>
                                 </div>
-                                <p class="text-muted">One morning, when Gregor Samsa woke from troubled dreams, he found
-                                    himself transformed in his bed into a horrible vermin. He lay on his armour-like
-                                    back, and if he lifted his head a little he could see his brown belly, slightly
-                                    domed and divided by arches into stiff sections </p>
+                            
                             </div>
                         </div>
-                        <div class="review d-flex">
-                            <div class="flex-shrink-0 text-center me-4 me-xl-5"><img class="review-image"
-                                    src="img/person-2.jpg" alt="Luke Skywalker"><span
-                                    class="text-uppercase text-muted">Dec 2018</span></div>
-                            <div>
-                                <h5 class="mt-2 mb-1">Luke Skywalker</h5>
-                                <div class="mb-2"><i class="fa fa-xs fa-star text-warning"></i><i
-                                        class="fa fa-xs fa-star text-warning"></i><i
-                                        class="fa fa-xs fa-star text-warning"></i><i
-                                        class="fa fa-xs fa-star text-warning"></i><i
-                                        class="fa fa-xs fa-star text-gray-200"></i>
+                        <div class="col-lg-2  ">
+                            <div class="row float-end ">
+                                {% if review.image1 %}
+                                <div class="col-lg-6 col-md-6 p-0">
+                                    <a href="{{review.image1.url}}"><img src="{{review.image1.url}}" alt="" class="img-fluid" style="height: 70px;width: 70px;"></a>   
                                 </div>
-                                <p class="text-muted">The bedding was hardly able to cover it and seemed ready to slide
-                                    off any moment. His many legs, pitifully thin compared with the size of the rest of
-                                    him, waved about helplessly as he looked. &quot;What's happened to me?&quot; he
-                                    thought. It wasn't a dream. </p>
+                                {% endif %}
+                                {% if review.image2 %}
+                                <div class="col-lg-6 col-md-6 p-0">
+                                    <a href="{{review.image2.url}}"><img src="{{review.image2.url}}" alt="" class="img-fluid" style="height: 70px;width: 70px;"></a>   
+                                </div>
+                                {% endif %}
                             </div>
+                            <div class="row pt-2 float-end">
+                                {% if review.image3 %}
+                                <div class="col-lg-6 col-md-6 p-0">
+                                    <a href="{{review.image3.url}}"><img src="{{review.image3.url}}" alt="" class="img-fluid" style="height: 70px;width: 70px;"></a>   
+                                </div>
+                                {% endif %}
+                                {% if review.image4 %}
+                                <div class="col-lg-6 col-md-6 p-0">
+                                    <a href="{{review.image4.url}}"><img src="{{review.image4.url}}" alt="" class="img-fluid" style="height: 70px;width: 70px;"></a>   
+                                </div>
+                                {% endif %}
+                            </div>
+                            
                         </div>
-                        <div class="review d-flex">
-                            <div class="flex-shrink-0 text-center me-4 me-xl-5"><img class="review-image"
-                                    src="img/person-3.jpg" alt="Princess Leia"><span
-                                    class="text-uppercase text-muted">Dec 2018</span></div>
-                            <div>
-                                <h5 class="mt-2 mb-1">Princess Leia</h5>
-                                <div class="mb-2"><i class="fa fa-xs fa-star text-warning"></i><i
-                                        class="fa fa-xs fa-star text-warning"></i><i
-                                        class="fa fa-xs fa-star text-warning"></i><i
-                                        class="fa fa-xs fa-star text-gray-200"></i><i
-                                        class="fa fa-xs fa-star text-gray-200"></i>
-                                </div>
-                                <p class="text-muted">His room, a proper human room although a little too small, lay
-                                    peacefully between its four familiar walls. A collection of textile samples lay
-                                    spread out on the table. </p>
-                            </div>
-                        </div>
-                        <div class="review d-flex">
-                            <div class="flex-shrink-0 text-center me-4 me-xl-5"><img class="review-image"
-                                    src="img/person-4.jpg" alt="Jabba Hut"><span class="text-uppercase text-muted">Dec
-                                    2018</span></div>
-                            <div>
-                                <h5 class="mt-2 mb-1">Jabba Hut</h5>
-                                <div class="mb-2"><i class="fa fa-xs fa-star text-warning"></i><i
-                                        class="fa fa-xs fa-star text-warning"></i><i
-                                        class="fa fa-xs fa-star text-warning"></i><i
-                                        class="fa fa-xs fa-star text-warning"></i><i
-                                        class="fa fa-xs fa-star text-warning"></i>
-                                </div>
-                                <p class="text-muted">Samsa was a travelling salesman - and above it there hung a
-                                    picture that he had recently cut out of an illustrated magazine and housed in a
-                                    nice, gilded frame. </p>
-                            </div>
+                        
+                        {% endfor %}
                         </div>
                         <div class="py-5 px-3">
+                           
                             <h5 class="text-uppercase mb-4">Leave a review</h5>
-                            <form class="form" id="contact-form" method="post" action="contact.php">
+                            <form class="form" id="contact-form" method="post" action="{% url 'add_review' product.id %}" enctype="multipart/form-data">
+                                {% csrf_token %}
                                 <div class="row">
-                                    <div class="col-sm-6">
-                                        <div class="mb-4">
-                                            <label class="form-label" for="name">Your name *</label>
-                                            <input class="form-control" type="text" name="name" id="name"
-                                                placeholder="Enter your name" required="required">
+                                    <div class="col-lg-6 col-md-6">
+                                       <label class="form-label" for="">Image 1</label>
+                                       <input type="file" class="form-control" name="image1">
+                                       <label class="form-label" for="">Image 2</label>
+                                       <input type="file" class="form-control" name="image2">
+                                       <label class="form-label" for="">Image 3</label>
+                                       <input type="file" class="form-control" name="image3">
+                                       <label class="form-label" for="">Image 4</label>
+                                       <input type="file" class="form-control" name="image4">
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 align-items-center  d-flex justiify-content-center">
+                                        <div class="rating-section mx-auto">
+                                            <label for="" class="form-label">Your Rating <small>(required)</small></label>
+                                            <div class="rate" style="position: relative;top: 20px;" >
+                                                <input type="radio" name="rating" id="rating10" value="5" required /><label for="rating10" title="5"></label>
+                                                <input type="radio" name="rating" id="rating9" value="4.5" required /><label for="rating9" title="4.5" class="half"></label>
+                                                <input type="radio" name="rating" id="rating8" value="4" required /><label for="rating8" title="4"></label>
+                                                <input type="radio" name="rating" id="rating7" value="3.5" required /><label for="rating7" title="3.5" class="half"></label>
+                                                <input type="radio" name="rating" id="rating6" value="3" required /><label for="rating6" title="3"></label>
+                                                <input type="radio" name="rating" id="rating5" value="2.5" required /><label for="rating5" title="2.5" class="half"></label>
+                                                <input type="radio" name="rating" id="rating4" value="2" required /><label for="rating4" title="2"></label>
+                                                <input type="radio" name="rating" id="rating3" value="1.5" required /><label for="rating3" title="1.5" class="half"></label>
+                                                <input type="radio" name="rating" id="rating2" value="1" required /><label for="rating2" title="1"></label>
+                                                <input type="radio" name="rating" id="rating1" value="0.5" required /><label for="rating1" title="0.5" class="half"></label>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-6">
-                                        <div class="mb-4">
-                                            <label class="form-label" for="rating">Your rating *</label>
-                                            <select class="custom-select focus-shadow-0" name="rating" id="rating">
-                                                <option value="5">&#9733;&#9733;&#9733;&#9733;&#9733; (5/5)</option>
-                                                <option value="4">&#9733;&#9733;&#9733;&#9733;&#9734; (4/5)</option>
-                                                <option value="3">&#9733;&#9733;&#9733;&#9734;&#9734; (3/5)</option>
-                                                <option value="2">&#9733;&#9733;&#9734;&#9734;&#9734; (2/5)</option>
-                                                <option value="1">&#9733;&#9734;&#9734;&#9734;&#9734; (1/5)</option>
-                                            </select>
-                                        </div>
+                                    
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                       <label for="" class="form-label">Review Title</label>
+                                       <input type="text" class="form-control" name="subject" required>
                                     </div>
                                 </div>
-                                <div class="mb-4">
-                                    <label class="form-label" for="email">Your email *</label>
-                                    <input class="form-control" type="email" name="email" id="email"
-                                        placeholder="Enter your  email" required="required">
+                                <div class="row mb-2">
+                                    <div class="col-md-12">
+                                       <label for="" class="form-label">Review </label>
+                                       <input type="text" class="form-control"  name="review" required>
+                                    </div>
                                 </div>
-                                <div class="mb-4">
-                                    <label class="form-label" for="review">Review text *</label>
-                                    <textarea class="form-control" rows="4" name="review" id="review"
-                                        placeholder="Enter your review" required="required"></textarea>
-                                </div>
+                                
+                                {% if user.is_authenticated %}
                                 <button class="btn btn-outline-dark" type="submit">Post review</button>
+                                {% else %}
+                                <p class="d-inline mt-2">You must be Logged in to submit a review.  </p><a class="d-inline" href="{% url 'login' %}">Login Now</a>
+                                {% endif %}
                             </form>
                         </div>
                     </div>
@@ -258,7 +265,7 @@
                     <div class="product-image">
                         <div class="ribbon ribbon-info">Fresh</div><img class="img-fluid"
                             src="{{product.image.url}}" alt="product" style="height: 250px; width: 200px;" />
-                        <div class="product-hover-overlay"><a class="product-hover-overlay-link" href="detail.html"></a>
+                        <div class="product-hover-overlay"><a class="product-hover-overlay-link" href="{% url 'product_detail' product.category.category_slug product.product_slug %}"></a>
                             <div class="product-hover-overlay-buttons">
                                
                                 <a class="btn btn-dark btn-buy py-0 px-1 text-center" href="{% url 'product_detail' product.category.category_slug product.product_slug %}"><i class="fa-search fa align-self-center"></i><span class="btn-buy-label ms-2 my-auto ">View</span></a>
@@ -279,5 +286,6 @@
         </div>
     </div>
 </section>
+
 {% endif %}
 {% endblock %}

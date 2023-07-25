@@ -4,7 +4,7 @@
     <div class="container">
         <!-- Breadcrumbs -->
         <ol class="breadcrumb justify-content-center">
-            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
             <li class="breadcrumb-item active">Shop </li>
         </ol>
         <!-- Hero Content-->
@@ -44,29 +44,31 @@
                     
                     <!-- /product-->
                     <!-- product-->
-                    {% for item in products_byinfo %}
-                    <div class="col-xl-3 col-lg-4 col-sm-6">
-                        <div class="product">
-                            <div class="product-image"><img class="img-fluid" style="height: 500px;"
-                                    src="{{item.product.image.url}}" alt="{{item.product.category.category_name}}-{{item.product.product_name}}" >
-                                <div class="product-hover-overlay"><a class="product-hover-overlay-link"
-                                        href="{% url 'product_detail' item.product.category.category_slug item.product.product_slug %}"></a>
-                                    <div class="product-hover-overlay-buttons"><a
-                                            class="btn btn-outline-dark btn-product-left d-none d-sm-inline-block"
-                                            href="#"><i class="fa fa-shopping-cart"></i></a><a
-                                            class="btn btn-dark btn-buy" href="{% url 'product_detail' item.product.category.category_slug item.product.product_slug %}"><i
-                                                class="fa-search fa"></i><span
-                                                class="btn-buy-label ms-2">View</span></a>
+                    
+                        {% for product in products %}
+                        <div class="col-xl-3 col-lg-4 col-sm-6">
+                            <div class="product">
+                                <div class="product-image"><img class="img-fluid" style="height: 500px;"
+                                        src="{{product.image.url}}" alt="{{product.category.category_name}}-{{product.product_name}}" >
+                                    <div class="product-hover-overlay"><a class="product-hover-overlay-link"
+                                            href="{% url 'product_detail' product.category.category_slug product.product_slug %}"></a>
+                                        <div class="product-hover-overlay-buttons"><a
+                                                class="btn btn-outline-dark btn-product-left d-none d-sm-inline-block"
+                                                href="#"><i class="fa fa-shopping-cart"></i></a><a
+                                                class="btn btn-dark btn-buy" href="{% url 'product_detail' product.category.category_slug product.product_slug %}"><i
+                                                    class="fa-search fa"></i><span
+                                                    class="btn-buy-label ms-2">View</span></a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="py-2">
-                                <p class="text-muted text-sm mb-1">{{category.category_name}}</p>
-                                <h3 class="h6 text-uppercase mb-1"><a class="text-dark" href="{% url 'product_detail' item.product.category.category_slug item.product.product_slug %}">{{item.product.product_name}}</a></h3><span class="text-muted">INR {{item.product.price}}</span>
+                                <div class="py-2">
+                                    <p class="text-muted text-sm mb-1">{{product.category.category_name}}</p>
+                                    <h3 class="h6 text-uppercase mb-1"><a class="text-dark" href="{% url 'product_detail' product.category.category_slug product.product_slug %}">{{product.product_name}}</a></h3><span class="text-muted">INR {{product.price}}</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    {% endfor %}
+                        {% endfor %}
+                    
                     <!-- /product-->
                     <!-- product-->
                     
@@ -74,17 +76,27 @@
                 </div>
                 <!-- Pagination-->
                 <nav class="d-flex justify-content-center mb-5 mt-3" aria-label="page navigation">
+                    {% if products.has_other_pages %}
                     <ul class="pagination">
-                        <li class="page-item"><a class="page-link" href="#" aria-label="Previous"><span
-                                    aria-hidden="true">Prev</span><span class="sr-only">Previous</span></a></li>
-                        <li class="page-item active"><a class="page-link" href="#">1 </a></li>
-                        <li class="page-item"><a class="page-link" href="#">2 </a></li>
-                        <li class="page-item"><a class="page-link" href="#">3 </a></li>
-                        <li class="page-item"><a class="page-link" href="#">4 </a></li>
-                        <li class="page-item"><a class="page-link" href="#">5 </a></li>
-                        <li class="page-item"><a class="page-link" href="#" aria-label="Next"><span
-                                    aria-hidden="true">Next</span><span class="sr-only">Next </span></a></li>
+                        {%  if products.has_previous %}
+                        <li class="page-item "><a class="page-link" href="?page={{products.previous_page_number}}">Previous</a></li>
+                        {% else %}
+                        <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                        {% endif %}
+                        {% for i in products.paginator.page_range %}
+                            {% if products.number == i %}
+                                <li class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
+                            {% else %}
+                                <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                        {% if products.has_next %}
+                            <li class="page-item "><a class="page-link" href="?page={{products.next_page_number}}">Next</a></li>
+                        {% else %}
+                            <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+                        {% endif %}
                     </ul>
+                    {% endif %}
                 </nav>
             </div>
             <!-- / Grid End-->

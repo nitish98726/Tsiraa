@@ -60,6 +60,8 @@ class User(AbstractBaseUser):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username' , 'first_name' , 'last_name']
     objects = UserManager()
+    def full_name(self):
+        return f'{self.first_name} {self.last_name}'
 
     def __str__(self):
         return self.email
@@ -91,3 +93,17 @@ class UserProfile(models.Model):
         return self.user.first_name
     
     
+class Address(models.Model):
+    user = models.ForeignKey(User , on_delete=models.CASCADE)
+    full_name = models.CharField(max_length=200)
+    address1 = models.CharField(max_length=500)
+    address2 =models.CharField(max_length=250 , blank=True)
+    landmark = models.CharField(max_length=100, blank=True)
+    city = models.CharField(max_length=100)
+    state = models.CharField(max_length=100)
+    pin_code = models.CharField(max_length=10)
+    country = models.CharField(max_length=50 ,  default="INDIA")
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.full_name

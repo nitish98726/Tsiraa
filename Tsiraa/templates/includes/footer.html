@@ -38,11 +38,11 @@
     <!-- Main block - menus, subscribe form-->
     <div class="py-6 bg-gray-300 text-muted">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-4 mb-5 mb-lg-0">
-                    <div class="fw-bold text-uppercase text-lg text-dark mb-3">Sell<span
-                            class="text-primary">.</span></div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
+            <div class="row ">
+                <div class="col-lg-4 mb-5 mb-lg-0 ">
+                    <div><img src="{% static 'logo/3.png' %}" alt="" width="200px" height="150px"  style="margin-left: -40px; margin-top: -40px;"></div>
+                    
+                    <p class="h5" style="position: relative; bottom: 30px;">Tsiraa - Elegance Redefined</p>
                     <ul class="list-inline">
                         <li class="list-inline-item"><a class="text-muted text-primary-hover" href="#"
                                 target="_blank" title="twitter"><i class="fab fa-twitter"></i></a></li>
@@ -58,28 +58,26 @@
                 </div>
                 <div class="col-lg-2 col-md-6 mb-5 mb-lg-0">
                     <h6 class="text-uppercase text-dark mb-3">Shop</h6>
+                    {% for cat in categories %}
                     <ul class="list-unstyled">
-                        <li> <a class="text-muted text-decoration-none" href="#">For Women</a></li>
-                        <li> <a class="text-muted text-decoration-none" href="#">For Men</a></li>
-                        <li> <a class="text-muted text-decoration-none" href="#">Stores</a></li>
-                        <li> <a class="text-muted text-decoration-none" href="#">Our Blog</a></li>
-                        <li> <a class="text-muted text-decoration-none" href="#">Shop</a></li>
+                        <li> <a class="text-muted text-decoration-none" href="#">{{cat}}</a></li>
+                        
                     </ul>
+                    {% endfor %}
                 </div>
                 <div class="col-lg-2 col-md-6 mb-5 mb-lg-0">
                     <h6 class="text-uppercase text-dark mb-3">Company</h6>
                     <ul class="list-unstyled">
-                        <li> <a class="text-muted text-decoration-none" href="#">Login </a></li>
-                        <li> <a class="text-muted text-decoration-none" href="#">Register </a></li>
+                        <li> <a class="text-muted text-decoration-none" href="{% url 'login' %}">Login </a></li>
+                        <li> <a class="text-muted text-decoration-none" href="{% url 'register' %}">Register </a></li>
                         <li> <a class="text-muted text-decoration-none" href="#">Wishlist </a></li>
-                        <li> <a class="text-muted text-decoration-none" href="#">Our Products </a></li>
-                        <li> <a class="text-muted text-decoration-none" href="#">Checkouts </a></li>
+                        <li> <a class="text-muted text-decoration-none" href="{% url 'products' %}">Our Products </a></li>
+                        <li> <a class="text-muted text-decoration-none" href="{% url 'cart' %}">Cart</a></li>
                     </ul>
                 </div>
                 <div class="col-lg-4">
                     <h6 class="text-uppercase text-dark mb-3">Daily Offers & Discounts</h6>
-                    <p class="mb-3"> Lorem ipsum dolor sit amet, consectetur adipisicing elit. At itaque temporibus.
-                    </p>
+                    <p class="mb-3"> Signup to our Mailing List to get updated about Latest Products and Offers
                     <form action="#" id="newsletter-form">
                         <div class="input-group mb-3">
                             <input class="form-control bg-transparent border-secondary border-end-0" type="email"
@@ -119,10 +117,9 @@
     <!-- Bootstrap JavaScript Bundle (Popper.js included)-->
     <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
     
-    <!-- Owl Carousel-->
+    <!-- Slick Carousel-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script> 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="{% static 'vendor/owl.carousel2.thumbs/owl.carousel2.thumbs.min.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js" integrity="sha512-XtmMtDEcNz2j7ekrtHvOVR4iwwaD6o/FUJe6+Zq+HgcCsk3kj4uSQQR8weQ2QVj1o0Pk6PwYLohm206ZzNfubg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- NoUI Slider (price slider)-->
     <script src="{% static 'vendor/nouislider/nouislider.min.js' %}"></script>
     <!-- Smooth scrolling-->
@@ -158,7 +155,7 @@
             
     </script>
     <script src="{% static 'js/custom.js' %}"></script>
-    
+    <script src="{% static 'js/slick.js' %}"></script>
 
     
 </body>

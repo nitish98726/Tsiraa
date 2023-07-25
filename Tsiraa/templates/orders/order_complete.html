@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<section class="hero">
+    <div class="container">
+        <!-- Breadcrumbs -->
+        <ol class="breadcrumb justify-content-center">
+            <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+            <li class="breadcrumb-item active">Order confirmed </li>
+        </ol>
+        <!-- Hero Content-->
+        <div class="hero-content pb-5 text-center">
+            <h1 class="hero-heading">Order confirmed</h1>
+        </div>
+    </div>
+</section>
+<section class="pb-5">
+    <div class="container text-center">
+        <div class="icon-rounded bg-light mb-3 mx-auto text-dark fs-2">
+            <i class="fa-solid fa-square-check fa-2xl" ></i>
+        </div>
+        <h4 class="mb-3 ff-base">Thank you, {{user.full_name}}. Your order is confirmed.</h4>
+        <div class="container border border-dark">
+            <div class="row h-100">
+                <div class="col-lg-6 col-md-6 col-sm-6  border-end ">
+                   
+                    <img class="d-block" src="{% static 'logo/3.png' %}" alt="logo" width="200px" height="150px" style="margin-left: -40px;">
+                    <h5 class="float-start" style="position: relative; bottom: 30px;" >Elegance Redefined</h5>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 mt-3">
+                    <p class="w-100 text-end">Name - {{order.full_name | capfirst}}</p>
+                    <p class="w-100 text-end ">Address - {{order.full_address |capfirst}}</p>
+                    <p class="w-100 text-end">Contact Number - {{order.phone}}</p>
+                    <p class=" w-100 text-end">Email - {{order.email}}</p>
+                    
+                </div>
+            </div>
+            <hr>
+            <div class="row mb-3">
+                <h3 class="text-center text-decoration-underline">Order Details</h3>
+                <div class="col-lg-8 col-md-8">
+                    <table class="table table-borderless mb-0">
+                        <thead>
+                            <th></th>
+                            <th>Product Name</th>
+                            <th>Quantity</th>
+                            <th>Price/Unit</th>
+                            <th>Total</th>
+                        </thead>
+                        
+                        <tbody>
+                            {% for prod in orderproduct %}
+                            <tr>
+                                <td style="position: relative; bottom: 60px;">
+                                    
+                                    <img  src="{{prod.product.image.url}}" alt="{{prod.product}} Image" width="75px"><br>
+                                    <span class="text-muted text-sm">Size: {{prod.size}}</span>
+                                    |
+                                    <span class="text-muted text-sm">Color: {{prod.color}}</span>
+                                    
+                                
+                                </td>
+                                <td>{{prod.product.product_name}}</td>
+                                <td>{{prod.quantity}}</td>
+                                <td>{{prod.productPrice}}</td>
+                                <td>{{prod.product_total}}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <img src="{% static 'img/paid.png' %}"  alt="" height="200px" width="200px" style="transform: rotate(30deg);">
+                   
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    <div class="block-header">
+                        <h6 class="text-uppercase mb-0">Order Summary</h6>
+                    </div>
+                    <div class="block-body bg-light pt-1">
+                       
+                        <ul class="order-summary mb-0 list-unstyled">
+                            <li class="order-summary-item"><span>Order Subtotal </span><span>INR {{sub_total}}</span></li>
+                            <li class="order-summary-item"><span>Shipping and handling</span><span>FREE</span></li>
+                            <li class="order-summary-item"><span>Tax</span><span>INR {{order.tax}}</span></li>
+                            <li class="order-summary-item border-0"><span>Total</span><strong
+                                    class="order-summary-total">INR {{order.order_total}}</strong></li>
+                        </ul>
+                    </div> 
+                </div>
+            </div>
+            <hr>
+            <p class="text-center">Thanks for Ordering with Tsiraa . You can contact our customer services for any query <a href="#">Contact us</a></p>
+        </div>
+        <p> <a class="btn btn-outline-dark mt-4" href="{% url 'custDashboard' %}">View or manage your order</a></p>
+    </div>
+</section>
+{% endblock %}

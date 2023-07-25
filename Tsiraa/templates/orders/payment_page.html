@@ -1,0 +1,205 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="hero">
+    <div class="container">
+        <!-- Breadcrumbs -->
+        <ol class="breadcrumb justify-content-center">
+            <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+            <li class="breadcrumb-item active">Payment Page</li>
+        </ol>
+        <!-- Hero Content-->
+        <div class="hero-content pb-5 text-center">
+            <h1 class="hero-heading">Checkout</h1>
+            <div class="row">
+                <div class="col-xl-8 offset-xl-2">
+                    <p class="lead text-muted">Please review your order.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Checkout-->
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="row m-0" style="background-color: #F8F9FA; height: 70px;">
+                    <h4 class="ms-2 align-self-center fw-bold" >Verify Delivery Address</h4>
+                </div>
+                
+                <div class="row mb-5">
+                    <div class="col-md-12 mt-3 ms-4">
+                        <p><span class="h5">Address - </span>{{order.full_address}}</p>
+                        <p><span class="h5">Contact No. </span>{{order.phone}}</p>
+                        <p><span class="h5">Email Address - </span>{{order.email}}</p>
+                    </div>
+                    <a href="{% url 'checkout' %}" class="btn btn-outline-dark ms-4" style="width: 500px;">Change Delivery Address</a>
+                </div>
+                
+                <!-- <h3> Verify Delivery Address</h3> -->
+                <div class="mb-5">
+                    <div class="cart">
+                        <div class="cart-wrapper">
+                            <div class="cart-header text-center">
+                                <div class="row">
+                                    <div class="col-6">Item</div>
+                                    <div class="col-2">Price</div>
+                                    <div class="col-2">Quantity</div>
+                                    <div class="col-2">Total</div>
+                                </div>
+                            </div>
+                            <div class="cart-body">
+                                <!-- Product-->
+                                {% for item in cartitems %}
+                                <div class="cart-item">
+                                    <div class="row d-flex align-items-center text-center">
+                                        <div class="col-6">
+                                            <div class="d-flex align-items-center"><a href="#"><img
+                                                        class="cart-item-img"
+                                                        src="{{item.product.image.url}}"
+                                                        alt="{{item.product.product_name}} image"></a>
+                                                <div class="cart-title text-start"><a class="text-uppercase text-dark"
+                                                        href="#"><strong>{{item.product.product_name}}</strong></a><br><span
+                                                        class="text-muted text-sm">Size: {{item.size}}</span><br><span
+                                                        class="text-muted text-sm">Colour: {{item.color}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-2">INR {{item.product.price}}</div>
+                                        <div class="col-2">{{item.quantity}}
+                                        </div>
+                                        <div class="col-2 text-center">{{item.item_wise_total}}</div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                                <!-- Product-->
+                                
+                            </div>
+                        </div>
+                        <a href="{% url 'cart' %}" class="btn btn-outline-dark ms-4"><i class="fa-solid fa-arrow-left fa-lg me-2"></i>Return To Cart</a>
+                    </div>
+                </div>
+               
+            </div>
+            <div class="col-lg-4">
+                <div class="block mb-5">
+                    <div class="block-header">
+                        <h6 class="text-uppercase mb-0">Order Summary</h6>
+                    </div>
+                    <div class="block-body bg-light pt-1">
+                        <p class="text-sm">Shipping and additional costs are calculated based on values you have
+                            entered.</p>
+                        <ul class="order-summary mb-0 list-unstyled">
+                            <li class="order-summary-item"><span>Order Subtotal </span><span>INR {{sub_total}}</span></li>
+                            <li class="order-summary-item"><span>Shipping and handling</span><span>FREE</span></li>
+                            <li class="order-summary-item"><span>Tax</span><span>INR {{tax}}</span></li>
+                            <li class="order-summary-item border-0"><span>Total</span><strong
+                                    class="order-summary-total">INR {{grand_total}}</strong></li>
+                        </ul>
+                    </div>
+                    <div class="rzp_payment_button w-100" >
+                        <button class="btn btn-dark w-100" id="rzp-button1">Pay With Razorpay</button>
+                        <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+                    </div>
+                   
+                    <div class="d-none fw-bold text-center" id="spinner_wait"><i class="fa-solid fa-spinner fa-spin"></i> Please Wait..</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+    }
+    var csrftoken = getCookie('csrftoken')
+    var grand_total = "{{grand_total}}"
+    var url = "{% url 'payment' %}"
+    var order_number = '{{order.order_number}}'
+    var order_complete = "{% url 'order_complete' %}"
+    // Render the PayPal button into #paypal-button-container
+    
+
+    // send data to payments view to store in database
+    
+    function sendTransactionRzp(transaction_id , payment_method , status , razorpay_order_id , razorpay_signature){
+        $.ajax({
+            type:"POST",
+            url:url,
+            data:{
+                'order_number':order_number,
+                'transaction_id':transaction_id,
+                'payment_method':payment_method,
+                'status':status,
+                'csrfmiddlewaretoken':csrftoken,
+                'razorpay_order_id':razorpay_order_id,
+                'razorpay_signature':razorpay_signature,
+            },
+            success: function(response){
+                console.log(response)
+                if(response.status=='Success'){
+                    window.location.href = order_complete+'?order_number='+response.order_number+'&transaction_id='+response.transaction_id  
+                }else if(response.status=="Failed"){
+                    swal(response.status , response.message , 'error')
+                }
+               
+            }
+
+        })
+    }
+    // Razorpay payment gateway
+    var options = {
+    "key": "{{RZP_KEY_ID}}", // Enter the Key ID generated from the Dashboard
+    "amount": "{{rzp_amount}}", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+    "currency": "INR",
+    "name": "TSIRAA", //your business name
+    "description": "TSIRAA-ENDS Redefined",
+    "image": "",
+    "order_id": "{{rzp_order_id}}", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+    "handler": function(response){
+        console.log(response)
+        var transaction_id = response.razorpay_payment_id
+        var payment_method = "RAZORPAY"
+        var status = 'Success'
+        var razorpay_order_id = response.razorpay_order_id
+        var signature = response.razorpay_signature
+        sendTransactionRzp(transaction_id , payment_method , status , razorpay_order_id , signature)
+        $('#spinner_wait').removeClass('d-none') 
+
+    },
+    // "callback_url": "https://eneqd3r9zrjok.x.pipedream.net/",
+    "prefill": { //We recommend using the prefill parameter to auto-fill customer's contact information especially their phone number
+        "name": "{{order.full_name}}", //your customer's name
+        "email": "{{order.email}}",
+        "contact": "{{order.phone}}" //Provide the customer's phone number for better conversion rates 
+    },
+    "notes": {
+        "address": "{{order.full_address}}"
+    },
+    "theme": {
+        "color": "#3399cc"
+    }
+    
+    };
+    
+
+   
+    var rzp1 = new Razorpay(options);
+    document.getElementById('rzp-button1').onclick = function(e){
+        rzp1.open();
+        e.preventDefault();
+    }
+</script>
+{% endblock %}

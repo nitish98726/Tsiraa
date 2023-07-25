@@ -4,14 +4,14 @@
     <div class="container">
       <!-- Breadcrumbs -->
       <ol class="breadcrumb justify-content-center">
-        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
         <li class="breadcrumb-item active">Shopping cart        </li>
       </ol>
       <!-- Hero Content-->
       <div class="hero-content pb-5 text-center">
         <h1 class="hero-heading">Shopping cart</h1>
         <div class="row">   
-          <div class="col-xl-8 offset-xl-2"><p class="lead text-muted">This is a second variant of the cart page. It handles differently smaller viewports - items do not stay in the table but stack a bit more. Resize your browser window to see it in action.</p></div>
+          <div class="col-xl-8 offset-xl-2"><p class="lead text-muted">Manage Items in Your Cart</p></div>
         </div>
       </div>
     </div>
@@ -37,8 +37,10 @@
             </div>
             <div class="cart-body">
               <!-- Product-->
+              {% if cart_items %}
               {% for item in cart_items %}
-              <div class="cart-item">
+              <div class=" h3 text-center my-6 fw-bold d-none" id="empty-cart">Your Cart is Empty</div>
+              <div class="cart-item" id="cart-item-{{item.id}}">
                 <div class="row d-flex align-items-center text-start text-md-center">
                   <div class="col-12 col-md-5"><a class="cart-remove close mt-3 d-md-none" href="#"><i class="fa fa-times"></i></a>
                     <div class="d-flex align-items-center"><a href="{% url 'product_detail' item.product.category.category_slug item.product.product_slug %}"><img class="cart-item-img" src="{{item.product.image.url}}" alt="..."></a>
@@ -59,7 +61,7 @@
                           <div class="d-md-none col-7 col-sm-9 text-muted">Quantity</div>
                           <div class="col-5 col-sm-3 col-md-12">
                             <div class="d-flex align-items-center">
-                              <div class="btn btn-items btn-items-decrease" class="decrease_cart"><i class="fa-solid fa-minus"></i></div>
+                              <div class="btn btn-items btn-items-decrease decrease_cart" data-id='{{item.id}}' data-url="{% url 'decrease_cart' item.id %}" ><i class="fa-solid fa-minus"></i></div>
                               <span class="text-center item_quantity mx-4" id="qty-{{item.id}}">{{item.quantity}}</span>
                               <div class="btn  add_cart fw-bold"  data-id='{{item.id}}' data-url="{% url 'add_cart_ajax' item.id %}"><i class="fa-solid fa-plus fa-beat "></i></div>
                             </div>
@@ -69,22 +71,27 @@
                       <div class="col-md-3"> 
                         <div class="row">
                           <div class="col-6 d-md-none text-muted">Total price </div>
-                          <div class="col-6 col-md-12 text-end text-md-center">{{item.item_wise_total}}</div>
+                          <div class="col-6 col-md-12 text-end text-md-center" id="item_wise_total{{item.id}}" >{{item.item_wise_total}}</div>
                         </div>
                       </div>
-                      <div class="col-2 d-none d-md-block text-center"><a class="cart-remove" href="#"> <i class="fa-solid fa-trash"></i></a></div>
+                      <div class="col-2 d-none d-md-block text-center"><a  data-url= "{% url 'remove_cart' item.id %}" data-id="{{item.id}}" class="cart-remove" href="#"> <i class="fa-solid fa-trash"></i></a></div>
                     </div>
                   </div>
                 </div>
               </div>
               {% endfor %}
+              {% else %}
+              <div class=" h3 text-center my-6 fw-bold" >Your Cart is Empty</div>
+              {% endif %}
               <!-- Product-->
               
             </div>
           </div>
+          
           <div class="my-5 d-flex justify-content-between flex-column flex-lg-row"><a class="btn btn-link text-muted" href="{% url 'category' %}"><i class="fa fa-chevron-left"></i> Continue Shopping</a>
-            <a class="btn btn-dark" href="{% url 'checkout' %}">Proceed to checkout <i class="fa fa-chevron-right"></i></a>
+          {% if cart_items %}  <a class="btn btn-dark" id="checkout-button" href="{% url 'checkout' %}">Proceed to checkout <i class="fa fa-chevron-right"></i></a> {% endif %}
           </div>
+          
         </div>
         <div class="col-lg-4">
           <div class="block mb-5">
@@ -92,12 +99,12 @@
               <h6 class="text-uppercase mb-0">Order Summary</h6>
             </div>
             <div class="block-body bg-light pt-1">
-              <p class="text-sm">Shipping and additional costs are calculated based on values you have entered.</p>
+              <p class="text-sm">Item Price shown is inclusive of Tax . No extra tax is charged above the shown product price</p>
               <ul class="order-summary mb-0 list-unstyled">
-                <li class="order-summary-item"><span>Order Subtotal </span><span>INR {{sub_total}}</span></li>
+                <li class="order-summary-item" ><span>Order Subtotal </span><span id ='subtotal'>{{sub_total}}</span></li>
                 <li class="order-summary-item"><span>Shipping and handling</span><span>0</span></li>
-                <li class="order-summary-item"><span>Tax</span><span>INR {{tax}}</span></li>
-                <li class="order-summary-item border-0"><span>Total</span><strong class="order-summary-total">INR {{grand_total}}</strong></li>
+                <li class="order-summary-item"><span>Tax</span><span  id="tax_amount">INR {{tax}}</span></li>
+                <li class="order-summary-item border-0" ><span>Total</span><strong id="grand_total" class="order-summary-total">INR {{grand_total}}</strong></li>
               </ul>
             </div>
           </div>

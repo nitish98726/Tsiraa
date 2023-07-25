@@ -9,10 +9,22 @@ Category - category_name , category_slug , created_at , category_description , c
 ProductAddInfo = product(fk) , decsrtpion , available_packaging , weight  , dimensions
 Cart - cart_id , date_added
 CartItem - user(fk) , product(fk) , size , color , quantity , is_active , cart(fk)
+Address - user(fk) , full_name , address1 , address2 , landmark ,city , ,state , pin_code , country , created_at
+Payment -user(fk) , payment_id , payment_method , amount_paid ,status, created_at
+Order = user(fk) , payment(fk) , order_number , first_name , last_name , phone , email , address_line1 , address_line2 , landmark , state , city , zip , order_total , tax , status , ip 
+is_ordered , created_at , updated_at . Functions - full_name , full_address.
+OrderProduct -order(fk) , payment(fk), user(fk) , product(fk) , size , color , quantity , productPrice , ordered(BOOL), created_at  , updated_at .Fuctions - product_total
+
+
 
 Forms
 UserForm - User
 UserProfileForm - UserProfile
-
+AddressForm - Address , fields = full_name , address1 ,address2 , landmark, city , state , pin_code , country
+OrderForm - Order , fields = first_name , last_name , phone , email ,  address_line1 , address_line2 , landmark , state , city , zip
 
 -------------------------------------------------------------------
+textlocal for message service 
+dtl approval to be taken and i have chosen jio as dtl
+i need contact us page
+i need email database for storing emails to send offers in footer section 

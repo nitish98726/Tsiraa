@@ -63,7 +63,7 @@ def amount_calculator(request):
                         tax_list.append(tax_dict)
                     else:
                         pass
-            print(tax_list)
+            # print(tax_list)
             
             for tax_dict in tax_list:
                 tax_total += tax_dict['tax_amount']
@@ -94,7 +94,7 @@ def amount_calculator(request):
                         tax_list.append(tax_dict)
                     else:
                         pass
-            print(tax_list)
+            # print(tax_list)
             
             for tax_dict in tax_list:
                 tax_total += tax_dict['tax_amount']

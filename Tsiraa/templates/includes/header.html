@@ -12,8 +12,7 @@
                                 <use xlink:href="#calls-1"> </use>
                             </svg>020-800-456-747
                         </li>
-                        <li class="list-inline-item px-3 border-start d-none d-lg-inline-block">Free shipping on
-                            orders over $300</li>
+                        <li class="list-inline-item px-3 border-start d-none d-lg-inline-block">Free Shipping To All Tier-A Cities</li>
                     </ul>
                 </div>
                 <div class="col-sm-5 d-flex justify-content-end">
@@ -37,25 +36,14 @@
     <!-- Navbar-->
     <nav class="navbar navbar-expand-lg navbar-sticky navbar-airy navbar-light bg-white bg-fixed-white">
         <div class="container-fluid">
-            <!-- Navbar Header  --> <a class="navbar-brand fs-3 fw-bolder fst-italic text-secondary" href="{% url 'home' %}" style="width: 100px;">Tsiraa</a>
+            <!-- Navbar Header  --> <a class="navbar-brand" href="{% url 'home' %}" "><img src="{% static 'logo/3.png' %}" alt="" width="200px" height="200px"></a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
                 aria-label="Toggle navigation"><i class="fa fa-bars"></i></button>
             <!-- Navbar Collapse -->
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav mx-auto">
-                    <li class="nav-item dropdown"><a class="nav-link dropdown-toggle active"
-                            id="homeDropdownMenuLink" href="#" data-bs-target="#" data-bs-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false">
-                            Home </a>
-                        <div class="dropdown-menu dropdown-menu-animated" aria-labelledby="homeDropdownMenuLink"><a
-                                class="dropdown-item" href="../index5.html">Slider + broken grid <span
-                                    class="badge badge-info-light ms-1">New</span> </a><a class="dropdown-item"
-                                href="../index.html">Fullscreen home + Lookbook</a><a class="dropdown-item"
-                                href="../index2.html">Split-screen home</a><a class="dropdown-item"
-                                href="../index3.html">Classic home</a><a class="dropdown-item"
-                                href="../index4.html">Parallax sections <span
-                                    class="badge badge-info-light ms-1">New</span></a></div>
+                    <li class="nav-item"><a class="nav-link active" href="{% url 'home' %}">Home</a>
                     </li>
                     <li class="nav-item dropdown"><a class="nav-link dropdown-toggle " id="categoryDropdownMenuLink"
                             href="#" data-bs-target="#" data-bs-toggle="dropdown" aria-haspopup="true"
@@ -69,76 +57,13 @@
                     </li>
                     
                     <!-- /Megamenu end-->
-                    <!-- Multi level dropdown    -->
-                    <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink"
-                            href="#" data-bs-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false">Dropdown</a>
-                        <ul class="dropdown-menu dropdown-menu-animated" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle"
-                                    id="navbarDropdownMenuLink2" href="#" data-bs-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false">Dropdown link</a>
-                                <ul class="dropdown-menu dropdown-menu-animated"
-                                    aria-labelledby="navbarDropdownMenuLink2">
-                                    <li><a class="dropdown-item" href="#">Action</a></li>
-                                    <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle"
-                                            id="navbarDropdownMenuLink3" href="#" data-bs-toggle="dropdown"
-                                            aria-haspopup="true" aria-expanded="false">Another action</a>
-                                        <ul class="dropdown-menu dropdown-menu-animated"
-                                            aria-labelledby="navbarDropdownMenuLink3">
-                                            <li><a class="dropdown-item" href="#">Action</a></li>
-                                            <li><a class="dropdown-item" href="#">Action</a></li>
-                                            <li><a class="dropdown-item" href="#">Action</a></li>
-                                            <li><a class="dropdown-item" href="#">Action</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle"
-                                            id="navbarDropdownMenuLink4" href="#" data-bs-toggle="dropdown"
-                                            aria-haspopup="true" aria-expanded="false">Another action</a>
-                                        <ul class="dropdown-menu dropdown-menu-animated"
-                                            aria-labelledby="navbarDropdownMenuLink4">
-                                            <li><a class="dropdown-item" href="#">Action</a></li>
-                                            <li><a class="dropdown-item" href="#">Action</a></li>
-                                            <li><a class="dropdown-item" href="#">Action</a></li>
-                                            <li><a class="dropdown-item" href="#">Action</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                </ul>
-                            </li>
-                            <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle"
-                                    id="navbarDropdownMenuLink5" href="#" data-bs-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false">Dropdown link</a>
-                                <ul class="dropdown-menu dropdown-menu-animated"
-                                    aria-labelledby="navbarDropdownMenuLink5">
-                                    <li><a class="dropdown-item" href="#">Action </a></li>
-                                </ul>
-                            </li>
-                        </ul>
+                    <!-- All Products -->
+                    <li class="nav-item"><a class="nav-link" href="{% url 'products' %}">All Products</a>
                     </li>
-                    <!-- Multi level dropdown end-->
-                    <li class="nav-item"><a class="nav-link" href="../contact.html">Contact</a>
+                    <!-- Customer Zone -->
+                    <li class="nav-item"><a class="nav-link" href="{% url 'custDashboard' %}">Customer Zone</a>
                     </li>
-                    <li class="nav-item dropdown"><a class="dropdown-toggle nav-link " id="docsDropdownMenuLink"
-                            href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Docs</a>
-                        <div class="dropdown-menu dropdown-menu-animated dropdown-menu-end"
-                            aria-labelledby="docsDropdownMenuLink">
-                            <h6 class="dropdown-header fw-normal">Documentation</h6><a class="dropdown-item"
-                                href="../docs/docs-introduction.html">Introduction </a><a class="dropdown-item"
-                                href="../docs/docs-directory-structure.html">Directory structure </a><a
-                                class="dropdown-item" href="../docs/docs-gulp.html">Gulp </a><a
-                                class="dropdown-item" href="../docs/docs-customizing-css.html">Customizing CSS
-                            </a><a class="dropdown-item" href="../docs/docs-credits.html">Credits </a><a
-                                class="dropdown-item" href="../docs/docs-changelog.html">Changelog </a>
-                            <div class="dropdown-divider"></div>
-                            <h6 class="dropdown-header fw-normal">Components</h6><a class="dropdown-item"
-                                href="../docs/components-bootstrap.html">Bootstrap </a><a class="dropdown-item"
-                                href="../docs/components-sell.html">Theme </a><a class="dropdown-item"
-                                href="../component-variants/header.html">Header variants <span
-                                    class="badge bg-warning ms-1">New</span> </a>
-                        </div>
-                    </li>
+                    
                 </ul>
                 <div
                     class="d-flex align-items-center justify-content-between justify-content-lg-end mt-1 mb-2 my-lg-0">

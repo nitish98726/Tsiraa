@@ -1,11 +1,11 @@
 from django.shortcuts import render , redirect , get_object_or_404
 from django.http import HttpResponse
-from .forms import UserForm , UserProfileForm
+from .forms import UserForm , UserProfileForm , AddressForm
 from django.contrib import messages , auth
 from .models import User
 import random
 from .utils import send_password_reset_mail , user_activation
-
+from django.contrib.auth.decorators import login_required
 from cart.models import Cart , CartItem
 # Create your views here.
 
@@ -166,3 +166,32 @@ def reset_password(request):
         else:
             messages.error(request , "Passwords do not Match .Kinldy re-enter carefully")
     return render(request , 'accounts/reset_password.html')
+
+@login_required(login_url = 'login')
+def custDashboard(request):
+    return render(request , 'accounts/custDashboard.html')
+
+@login_required(login_url = 'login')
+def custProfile(request):
+    return render(request , 'accounts/custProfile.html')
+
+def address(request):
+    if request.method=="POST":
+        form = AddressForm(request.POST)
+        if form.is_valid():
+            address = form.save(commit=False)
+            address.user = request.user
+            address.save()
+    form = AddressForm()
+    context= {
+        'form':form
+    }
+    return render(request , 'accounts/address.html' , context)
+
+def save_address(request):
+    if request.method=="POST":
+        form = AddressForm(request.POST)
+        if form.is_valid():
+            address = form.save(commit=False)
+            address.user = request.user
+            address.save()

@@ -1,5 +1,5 @@
 from django import forms
-from .models import User , UserProfile
+from .models import User , UserProfile , Address
 
 
 class UserForm(forms.ModelForm):
@@ -36,3 +36,13 @@ class UserProfileForm(forms.ModelForm):
         fields = ['profile_picture'  , 'address1', 'address2',  'state' , 'city' ,'landmark' , 'pin_code' , ]
     
 
+class AddressForm(forms.ModelForm):
+    class Meta:
+        model = Address
+        fields = ['full_name', 'address1' , 'address2' , 'landmark' , 'city' , 'state' , 'pin_code' , 'country' ]
+    def __init__(self , *args , **kwargs):
+        super(AddressForm , self).__init__(*args , **kwargs)
+        self.fields['full_name'].widget.attrs['placeholder']="Full Name"
+        for field in self.fields:
+            
+            self.fields[field].widget.attrs['class'] = 'form-control mb-4'

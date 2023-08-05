@@ -1,3 +1,4 @@
+// on product_detail page images on left side of main photo
 $(document).ready(function(){
     $('#p_image_side').on('click' , function(e){
         e.preventDefault()

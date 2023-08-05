@@ -28,5 +28,8 @@ urlpatterns = [
     path('search/' , views.search , name='search'),
     path('orders/' , include('orders.urls')),
     path('reviews/' , include('reviews.urls')),
+    path('customer_care/' , views.customer_care , name='customer_care'),
+    path('faq/' , views.faq , name='faq'),
+    path('privacy_policy' , views.privacy_policy , name= 'privacy_policy'),
    
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

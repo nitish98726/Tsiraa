@@ -17,3 +17,12 @@ def search(request):
             'count':count,
         }
     return render(request , 'store/product_search.html' , context)
+
+def customer_care(request):
+    return render(request , 'customer_care.html')
+
+def faq(request):
+    return render(request , 'faq.html')
+
+def privacy_policy(request):
+    return render(request , 'privacy_policy.html')

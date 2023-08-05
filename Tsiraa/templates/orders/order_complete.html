@@ -23,9 +23,21 @@
         <div class="container border border-dark">
             <div class="row h-100">
                 <div class="col-lg-6 col-md-6 col-sm-6  border-end ">
-                   
-                    <img class="d-block" src="{% static 'logo/3.png' %}" alt="logo" width="200px" height="150px" style="margin-left: -40px;">
-                    <h5 class="float-start" style="position: relative; bottom: 30px;" >Elegance Redefined</h5>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6">
+                            <img class="d-block" src="{% static 'logo/22.png' %}" alt="logo" width="200px" height="200px" style="margin-left: -40px;">
+                            <h5 class="float-start" style="position: relative; bottom: 30px;" >Ends Redefined</h5>
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <div class="text-end mt-5">
+                                <h6>GSTIN : 03EKIPM1901C1ZS</h6>
+                                <h6 class="text-small">Customer Support : wecare@tsiraa.com</h6>
+                                <h6>Contact no : +919898989898 </h6>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 mt-3">
                     <p class="w-100 text-end">Name - {{order.full_name | capfirst}}</p>
@@ -37,7 +49,7 @@
             </div>
             <hr>
             <div class="row mb-3">
-                <h3 class="text-center text-decoration-underline">Order Details</h3>
+                <h3 class="text-center text-decoration-underline h4 mb-5">Order Details</h3>
                 <div class="col-lg-8 col-md-8">
                     <table class="table table-borderless mb-0">
                         <thead>
@@ -68,7 +80,7 @@
                             {% endfor %}
                         </tbody>
                     </table>
-                    <img src="{% static 'img/paid.png' %}"  alt="" height="200px" width="200px" style="transform: rotate(30deg);">
+                    <img src="{% static 'img/paid.png' %}"  alt="" height="200px" width="200px" style="transform: rotate(30deg); position: relative; bottom: 50px;">
                    
                 </div>
                 <div class="col-lg-4 col-md-4">
@@ -88,7 +100,7 @@
                 </div>
             </div>
             <hr>
-            <p class="text-center">Thanks for Ordering with Tsiraa . You can contact our customer services for any query <a href="#">Contact us</a></p>
+            <p class="text-center">Thanks for Ordering with Tsiraa . You can contact our customer services for any query <a href="{% url 'customer_care' %}">Contact us</a></p>
         </div>
         <p> <a class="btn btn-outline-dark mt-4" href="{% url 'custDashboard' %}">View or manage your order</a></p>
     </div>

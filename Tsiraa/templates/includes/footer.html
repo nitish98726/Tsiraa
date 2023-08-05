@@ -40,7 +40,7 @@
         <div class="container">
             <div class="row ">
                 <div class="col-lg-4 mb-5 mb-lg-0 ">
-                    <div><img src="{% static 'logo/3.png' %}" alt="" width="200px" height="150px"  style="margin-left: -40px; margin-top: -40px;"></div>
+                    <div><img src="{% static 'logo/22.png' %}" alt="" width="200px" height="200px"  style="margin-left: -40px; margin-top: -40px;"></div>
                     
                     <p class="h5" style="position: relative; bottom: 30px;">Tsiraa - Elegance Redefined</p>
                     <ul class="list-inline">
@@ -73,6 +73,9 @@
                         <li> <a class="text-muted text-decoration-none" href="#">Wishlist </a></li>
                         <li> <a class="text-muted text-decoration-none" href="{% url 'products' %}">Our Products </a></li>
                         <li> <a class="text-muted text-decoration-none" href="{% url 'cart' %}">Cart</a></li>
+                        <li> <a class="text-muted text-decoration-none" href="{% url 'faq' %}">FAQ</a></li>
+                        <li> <a class="text-muted text-decoration-none" href="{% url 'customer_care' %}">Contact Us/Customer Care</a></li>
+                        <li> <a class="text-muted text-decoration-none" href="{% url 'privacy_policy' %}">Privacy Policy</a></li>
                     </ul>
                 </div>
                 <div class="col-lg-4">
@@ -124,8 +127,8 @@
     <script src="{% static 'vendor/nouislider/nouislider.min.js' %}"></script>
     <!-- Smooth scrolling-->
     <script src="{% static 'vendor/smooth-scroll/smooth-scroll.polyfills.min.js' %}"></script>
-    <!-- Lightbox gallery-->
-    <script src="{% static 'vendor/smooth-scroll/smooth-scroll.polyfills.min.js' %}"> </script>
+    <!-- Fancybox Lightbox gallery-->
+    <script src="{% static 'js/lightbox.js' %}"></script>
     <!-- Object Fit Images - Fallback for browsers that don't support object-fit-->
     <script src="{% static 'vendor/smooth-scroll/smooth-scroll.polyfills.min.js' %}"></script>
     <script>
@@ -147,6 +150,11 @@
             $('#search_icon').click(function(){
                 console.log('search icon working');
                 $('#search_bar').toggleClass('d-none');
+                $("#search_bar input").focus();
+            })
+            lightbox.option({
+                'alwaysShowNavOnTouchDevices':true,
+                'wrapAround':true,
             })
             
         })

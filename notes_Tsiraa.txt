@@ -26,5 +26,28 @@ OrderForm - Order , fields = first_name , last_name , phone , email ,  address_l
 -------------------------------------------------------------------
 textlocal for message service 
 dtl approval to be taken and i have chosen jio as dtl
+GOOGLE WORKSPACE FOR CUSTOM EMAIL AND DOMAIN - djangohostingaz@tsiraa.com
 i need contact us page
 i need email database for storing emails to send offers in footer section 
+63K&FKD4B29C6uK* - PASS FOR care@tsiraa.com
+mey8Dj&FFJej7gR% - pass for social_media@tsiraa.com
+------------------------------------------------------------------------------------------------------------------
+datatables.net -- this is a free opensource plugin pagination for tables in your web app .all functionalities like pagination , search and interactiveness are added auto
+------------------------------------------------------------------------------------------------------------------------
+Email - when we send users email like account verification email or forgot password email or some notification
+Uptill now we has used very simple content for email 
+to add html to email
+def send_verification_mail(request , user):
+    current_site = get_current_site(request)
+    main_subject = "Please activate your account"
+    message = render_to_string("accounts/emails/account_verification.html" , {
+        "user":user,
+        'domain':current_site,
+        'uid':urlsafe_base64_encode(force_bytes(user.pk)),
+        'token': default_token_generator.make_token(user),
+    })
+    to_email = user.email
+    send_email = EmailMessage(main_subject , message , to=[to_email])
+    send_email.content_subtype = 'html' # you have to add this piece of code 
+    send_email.send()
+the email templates support no bootstrap .So you have to use inline or same page css

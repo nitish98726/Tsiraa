@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<section class="hero">
+    <div class="container">
+        <!-- Breadcrumbs -->
+        <ol class="breadcrumb justify-content-center">
+            <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+            <li class="breadcrumb-item active">Contact </li>
+        </ol>
+        <!-- Hero Content-->
+        <div class="hero-content pb-5 text-center">
+            <h1 class="hero-heading">Contact</h1>
+            <div class="row">
+                <div class="col-xl-8 offset-xl-2">
+                    <p class="lead text-muted">We value your feedback, queries, and concerns, and we're here to assist you in every possible way. Whether you have a question about our products, need help with your order, or simply want to share your experience with us, we're all ears.
+
+                        Feel free to get in touch with our dedicated customer support team through any of the following channels:</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="py-6" style="background: #fafafa;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 text-center text-md-start">
+                <svg class="svg-icon svg-icon-light text-primary w-3rem h-3rem mb-3">
+                    <use xlink:href="#navigation-map-1"> </use>
+                </svg>
+                <h4 class="ff-base">Business Address</h4>
+                <p class="text-muted">20 Premier Complex, <br><b>India</b>, Ludhiana , Punjab 141010</strong>
+                </p>
+            </div>
+            <div class="col-md-4 text-center text-md-start">
+                <svg class="svg-icon svg-icon-light text-primary w-3rem h-3rem mb-3">
+                    <use xlink:href="#audio-call-1"> </use>
+                </svg>
+                <h4 class="ff-base">Call center</h4>
+                <p class="text-muted">We suggest using Email to Contact us as telephone lines may sometime be busier.</p>
+                <p class="text-muted"><strong>+33 555 444 333</strong></p>
+            </div>
+            <div class="col-md-4 text-center text-md-start">
+                <svg class="svg-icon svg-icon-light text-primary w-3rem h-3rem mb-3">
+                    <use xlink:href="#mail-1"> </use>
+                </svg>
+                <h4 class="ff-base">Electronic support</h4>
+                <p class="text-muted">Please feel free to write an email to us or to use our electronic ticketing
+                    system.</p>
+                <ul class="list-unstyled text-muted">
+                    <li class="text-decoration-underline fw-bold">wecare@tsiraa.com</li>
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="py-6">
+    <div class="container">
+        <header class="mb-5">
+            <h2 class="text-uppercase h5">Contact form</h2>
+        </header>
+        <div class="row">
+            <div class="col-md-7 mb-5 mb-md-0">
+                <form class="form" id="contact-form" method="POST" action="{% url 'customer_care' %}">
+                    <div class="controls">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="mb-4">
+                                    <label class="form-label" for="name">Your firstname *</label>
+                                    <input class="form-control" type="text" name="name" id="name"
+                                        placeholder="Enter your firstname" required="required">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="mb-4">
+                                    <label class="form-label" for="surname">Your lastname *</label>
+                                    <input class="form-control" type="text" name="surname" id="surname"
+                                        placeholder="Enter your  lastname" required="required">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label" for="email">Your email *</label>
+                            <input class="form-control" type="email" name="email" id="email"
+                                placeholder="Enter your  email" required="required">
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label" for="message">Your message for us *</label>
+                            <textarea class="form-control" rows="4" name="message" id="message"
+                                placeholder="Enter your message" required="required"></textarea>
+                        </div>
+                        <button class="btn btn-outline-dark" type="submit">Send message</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-5">
+                <p class="text-muted">We'd love to hear from you!
+
+                    Our contact form is designed to ensure a secure and seamless way for you to reach out to us. Rest assured that any information you provide is treated with the utmost confidentiality and will only be used to assist you better.
+                    
+                    At <b>Tsiraa</b>, trust and transparency are at the core of our values. We take your inquiries seriously and are committed to providing reliable, timely, and helpful responses to all your questions.
+                    
+                    Feel free to share your thoughts, concerns, or feedback with us through the contact form below. We are here to support you in every step of your journey with us, and your satisfaction is our top priority.
+                    
+                    Thank you for considering us as your trusted partner. We look forward to connecting with you soon!</p>
+                
+                <div class="social">
+                    <ul class="list-inline">
+                        <li class="list-inline-item"><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
+                        <li class="list-inline-item"><a href="#" target="_blank"><i class="fab fa-facebook"></i></a>
+                        </li>
+                        <li class="list-inline-item"><a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+                        </li>
+                        <li class="list-inline-item"><a href="#" target="_blank"><i class="fab fa-pinterest"></i></a>
+                        </li>
+                        <li class="list-inline-item"><a href="#" target="_blank"><i class="fab fa-vimeo"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

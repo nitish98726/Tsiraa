@@ -112,14 +112,22 @@ def payment(request):
                     size.save()
                 except:
                     pass
-                print(size)
-                color_status1 = Color.objects.get(product=product , size__size=size , color=item.color)
-                color_status2 = Color.objects.get(product=product ,  color=item.color)
-                print(color_status1 , color_status2)
+                # print(size)
+                try:
+                    color_status1 = Color.objects.get(product=product , size__size=item.size , color=item.color)
+                    print(color_status1 , "status1" , type(color_status1))
+                except:
+                    pass
+                try:    
+                    color_status2 = Color.objects.get(product=product ,  color=item.color)
+                    print(color_status2 , 'status2' , type(color_status2))
+                # print(color_status1 , color_status2)
+                except:
+                    pass
                 try:
                     if color_status1 is not None:
                         print('here1')
-                        color = Color.objects.get(product=product , size__size=size , color=item.color)
+                        color = Color.objects.get(product=product , size__size=item.size , color=item.color)
                         color.stock -= item.quantity
                         color.save()
                     elif color_status2 is not None:
@@ -127,6 +135,8 @@ def payment(request):
                         color = Color.objects.get(product=product ,  color=item.color)
                         color.stock -= item.quantity
                         color.save()
+                    else:
+                        print('i have passed')
                 except:
                     pass
                 
